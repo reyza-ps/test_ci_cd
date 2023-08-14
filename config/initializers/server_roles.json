@@ -1,0 +1,12 @@
+{
+  "roles": [
+    {
+      "role": "Hub",
+      "party_id": "OHC",
+      "country_code": "MY",
+      "business_details": {
+        "name": "Ocpi Hub Company"
+      }
+    }
+  ]
+}

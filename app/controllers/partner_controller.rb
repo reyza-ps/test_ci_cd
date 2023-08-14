@@ -1,0 +1,2 @@
+class PartnerController < AdminController
+end
