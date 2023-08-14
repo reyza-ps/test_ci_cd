@@ -13,25 +13,35 @@ Project OCPI Hub
 1. Clone the repository
 2. Run
 
-    $ bundle install
+    ```
+    bundle install
+    ```
 
 3. Create development environment from credentials.example
 
-    $ rails credentials:edit --environment development
+    ```
+    rails credentials:edit --environment development
+    ```
 
 4. Prepare database
 
-    $ rails db:create db:migrate
+    ```
+    rails db:create db:migrate
+    ```
 
 # Local development
 
 1. Install foreman
 
-    $ gem install foreman
+    ```
+    gem install foreman
+    ```
 
 2. Start server
 
-    $ ./bin/dev
+    ```
+    ./bin/dev
+    ```
 
 # OCPI
 
