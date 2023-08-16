@@ -84,3 +84,6 @@ gem "tailwindcss-rails", "~> 2.0"
 
 # Misc
 gem "devise"
+
+# Developer
+gem 'doorkeeper'
