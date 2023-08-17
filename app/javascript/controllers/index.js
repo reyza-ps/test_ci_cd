@@ -11,4 +11,6 @@ eagerLoadControllersFrom("controllers", application)
 // lazyLoadControllersFrom("controllers", application)
 
 import DropdownController from "./user_menu_controller"
+import SidebarCotroller from "./sidebar_controller"
 application.register("dropdown", DropdownController)
+application.register("sidebar", SidebarCotroller)
