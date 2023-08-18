@@ -1,0 +1,2 @@
+class ConnectorMessage < ApplicationRecord
+end

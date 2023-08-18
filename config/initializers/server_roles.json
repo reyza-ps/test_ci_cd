@@ -1,7 +1,7 @@
 {
   "roles": [
     {
-      "role": "Hub",
+      "role": "HUB",
       "party_id": "OHC",
       "country_code": "MY",
       "business_details": {
