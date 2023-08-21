@@ -1,0 +1,141 @@
+<main>
+  <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <div class="space-y-12">
+        <div class="border-b border-gray-900/10 pb-12">
+          <h2 class="mt-5 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Register Partner</h2>
+        </div>
+
+        <div class="border-b border-gray-900/10 pb-12">
+          <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-6">
+            <div class="sm:col-span-3">
+              <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Company Name<span class='text-red-600'> *</span></label>
+              <div class="mt-2">
+                <%= f.text_field :name, autofocus: true, autocomplete: "name", required: true, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+              </div>
+            </div>
+
+            <div class="sm:col-span-3">
+              <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email<span class='text-red-600'> *</span></label>
+              <div class="mt-2">
+                <%= f.email_field :email, autofocus: true, required: true, autocomplete: "email", class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+              </div>
+            </div>
+
+            <div class="sm:col-span-3">
+              <label for="address" class="block text-sm font-medium leading-6 text-gray-900">Full Address<span class='text-red-600'> *</span></label>
+              <div class="mt-2">
+                <%= f.text_area :address, rows: 2, autocomplete: "address", required: true, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+              </div>
+            </div>
+
+            <div class="sm:col-span-3">
+              <label for="city" class="block text-sm font-medium leading-6 text-gray-900">City<span class='text-red-600'> *</span></label>
+              <div class="mt-2">
+                <%= f.text_field :city, autofocus: true, required: true, autocomplete: "city", class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+              </div>
+            </div>
+
+            <div class="sm:col-span-3">
+              <label for="state" class="block text-sm font-medium leading-6 text-gray-900">State</label>
+              <div class="mt-2">
+                <%= f.text_field :state, autofocus: true, autocomplete: "state", class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+              </div>
+            </div>
+
+            <div class="sm:col-span-3">
+              <label for="country" class="block text-sm font-medium leading-6 text-gray-900">Country</label>
+              <div class="mt-2">
+                <% all_countries = Country.all.order(name: :asc).map(&:name).uniq || ["Malaysia", "Singapore", "Indoneisa", "United States"] %>
+                <%= f.select :country, all_countries, {selected: 'Malaysia'}, autofocus: true, autocomplete: "country", class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-s sm:text-sm sm:leading-6" %>
+              </div>
+            </div>
+
+            <div class="sm:col-span-3">
+              <label for="postcode" class="block text-sm font-medium leading-6 text-gray-900">Postcode</label>
+              <div class="mt-2">
+                <%= f.text_field :postcode, autofocus: true, autocomplete: "postcode", class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+              </div>
+            </div>
+ 
+            <div class="sm:col-span-3">
+              <label for="overview" class="block text-sm font-medium leading-6 text-gray-900">Overview</label>
+              <div class="mt-2">
+                <%= f.text_area :overview, rows: 2, autocomplete: "overview", class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+              </div>
+            </div> 
+
+            <div class="sm:col-span-3">
+              <label for="website_url" class="block text-sm font-medium leading-6 text-gray-900">Website URL</label>
+              <div class="mt-2">
+                <%= f.text_field :website_url, autofocus: true, autocomplete: "website_url", class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+              </div>
+            </div>
+
+            <div class="sm:col-span-3">
+              <label for="mobile_phone" class="block text-sm font-medium leading-6 text-gray-900">Mobile Phone</label>
+              <div class="mt-2">
+                <%= f.text_field :mobile_phone, autofocus: true, autocomplete: "mobile_phone", class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+              </div>
+            </div>
+
+            <div class="sm:col-span-3">
+              <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password<span class='text-red-600'> *</span></label>
+              <div class="mt-2">
+                <%= f.password_field :password, autofocus: true, required: true, autocomplete: "password", class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+              </div>
+            </div>
+
+            <div class="sm:col-span-3">
+              <label for="password_confirmation" class="block text-sm font-medium leading-6 text-gray-900">Password Confirmation<span class='text-red-600'> *</span></label>
+              <div class="mt-2">
+                <%= f.password_field :password_confirmation, autofocus: true, required: true, autocomplete: "password_confirmation", class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+              </div>
+            </div>
+
+            <div class="sm:col-span-3">
+              <label for="party_id" class="block text-sm font-medium leading-6 text-gray-900">Party ID</label>
+              <div class="mt-2">
+                <%= f.text_field :party_id, autofocus: true, autocomplete: "party_id", class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+              </div>
+            </div>
+
+            <div class="sm:col-span-3">
+              <label for="country_code" class="block text-sm font-medium leading-6 text-gray-900">Country Code</label>
+              <div class="mt-2">
+                <%= f.text_field :country_code, autofocus: true, autocomplete: "country_code", class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+              </div>
+            </div>
+
+            <div class="sm:col-span-3">
+              <label for="country_code" class="block text-sm font-medium leading-6 text-gray-900">Logo</label>
+              <div class="mt-2">
+                <label class="block">
+                  <%= f.file_field :logo, class: "sr-only" %>              
+                  <input type="file" class="block w-full text-sm text-slate-500
+                    file:mr-4 file:py-2 file:px-4
+                    file:rounded-full file:border-0
+                    file:text-sm file:font-semibold
+                    file:bg-violet-50 file:text-violet-700
+                    hover:file:bg-violet-100
+                  "/>
+                </label>              
+              </div>
+            </div>
+            <div class="sm:col-span-3">
+              <%= f.button 'Process', class: "inline-flex items-center rounded-md border border-transparent bg-sky-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2" %>
+              Or
+              <%= link_to 'Log In', new_partner_session_path, class: "inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" %>
+              <div class="text-sm">
+                <a href="<%= new_partner_confirmation_path %>" class="font-medium text-indigo-600 hover:text-indigo-500">Didn't receive confirmation instructions?</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 flex items-center justify-end gap-x-6">
+      </div>
+    <% end %>
+  </div>
+</main>

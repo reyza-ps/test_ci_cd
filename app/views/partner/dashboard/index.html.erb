@@ -1,0 +1,62 @@
+<div class="flex flex-col">
+  <div class="rounded-lg bg-white shadow flex-grow">
+    <!-- header content begin -->
+    <div class="px-4 py-5 sm:px-6 md:sticky md:top-16 md:z-10 bg-white rounded-t-lg border-b">
+      <div class="sm:flex sm:items-center">
+        <div class="sm:flex-auto">
+          <h1 class="text-base font-semibold leading-6 text-gray-900">
+            API Requests Today
+          </h1>
+        </div>
+      </div>
+    </div>
+    <!-- header content end -->
+    <div class="px-4 py-5 sm:p-6 flex-grow">
+      <!-- table content begin -->
+      <%= render 'api_request_table', api_requests: @api_requests || [] %>
+      <!-- table content end -->
+    </div>
+  </div>
+</div>
+
+<div class="flex flex-col mt-10">
+  <div class="rounded-lg bg-white shadow flex-grow">
+    <!-- header content begin -->
+    <div class="px-4 py-5 sm:px-6 md:sticky md:top-16 md:z-10 bg-white rounded-t-lg border-b">
+      <div class="sm:flex sm:items-center">
+        <div class="sm:flex-auto">
+          <h1 class="text-base font-semibold leading-6 text-gray-900">
+            API Requests This Week
+          </h1>
+        </div>
+      </div>
+    </div>
+    <!-- header content end -->
+    <div class="px-4 py-5 sm:p-6 flex-grow">
+      <!-- table content begin -->
+      <%= render 'api_request_table', api_requests: @api_requests || [] %>
+      <!-- table content end -->
+    </div>
+  </div>
+</div>
+
+<div class="flex flex-col mt-10">
+  <div class="rounded-lg bg-white shadow flex-grow">
+    <!-- header content begin -->
+    <div class="px-4 py-5 sm:px-6 md:sticky md:top-16 md:z-10 bg-white rounded-t-lg border-b">
+      <div class="sm:flex sm:items-center">
+        <div class="sm:flex-auto">
+          <h1 class="text-base font-semibold leading-6 text-gray-900">
+            API Requests This Month
+          </h1>
+        </div>
+      </div>
+    </div>
+    <!-- header content end -->
+    <div class="px-4 py-5 sm:p-6 flex-grow">
+      <!-- table content begin -->
+      <%= render 'api_request_table', api_requests: @api_requests || [] %>
+      <!-- table content end -->
+    </div>
+  </div>
+</div>

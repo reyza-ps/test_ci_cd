@@ -39,9 +39,9 @@ Doorkeeper.configure do
   # access_grant_class "Doorkeeper::AccessGrant"
   # application_class "Doorkeeper::Application"
   #
-  # access_token_class "Partner::AccessToken"
-  # access_grant_class "Partner::AccessGrant"
-  # application_class "Partner::Application"
+  access_token_class "Partner::AccessToken"
+  access_grant_class "Partner::AccessGrant"
+  application_class "Partner::Application"
   # Don't forget to include Doorkeeper ORM mixins into your custom models:
   #
   #   *  ::Doorkeeper::Orm::ActiveRecord::Mixins::AccessToken - for access token
