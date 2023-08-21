@@ -1,0 +1,35 @@
+ <tbody>
+  <% @evses.each do |evse| %>
+    <tr>
+      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+        <p class="text-gray-900 whitespace-no-wrap">
+          <%= link_to "#{evse.uid}", evse_path(evse.id), class: "font-medium text-blue-600 dark:text-blue-500 hover:underline" %>
+        </p>
+      </td>
+
+      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+        <p class="text-gray-900 whitespace-no-wrap">
+          <%= evse.evse_id %>
+        </p>
+      </td>
+
+      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+        <p class="text-gray-900 whitespace-no-wrap">
+          <%= evse.status %>
+        </p>
+      </td>
+
+      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+        <p class="text-gray-900 whitespace-no-wrap">
+          <%= evse.capabilities %>
+        </p>
+      </td>
+
+      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+        <p class="text-gray-900 whitespace-no-wrap">
+          <%= evse.last_updated %>
+        </p>
+      </td>
+    </tr>
+  <% end %>
+</tbody>

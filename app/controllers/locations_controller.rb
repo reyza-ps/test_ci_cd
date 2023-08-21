@@ -1,6 +1,7 @@
 class LocationsController < ApplicationController
+  layout 'admin'
   before_action :authenticate_user!
-  before_action :set_location, only: [:show, :edit, :update, :destroy, :clear_cache]
+  before_action :set_location, only: [:show]
 
   def index
     @locations = Location.order('created_at asc')

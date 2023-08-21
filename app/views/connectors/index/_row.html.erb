@@ -1,0 +1,59 @@
+ <tbody>
+  <% @connectors.each do |connector| %>
+    <tr>
+      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+        <p class="text-gray-900 whitespace-no-wrap">
+          <%= link_to "#{connector.evse.location.party_id} - #{connector.evse.location.country_code}", connector_path(connector.id), class: "font-medium text-blue-600 dark:text-blue-500 hover:underline" %>
+        </p>
+      </td>
+
+      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+        <p class="text-gray-900 whitespace-no-wrap">
+          <%= connector.uid %>
+        </p>
+      </td>
+
+      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+        <p class="text-gray-900 whitespace-no-wrap">
+          <%= connector.standard %>
+        </p>
+      </td>
+
+      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+        <p class="text-gray-900 whitespace-no-wrap">
+          <%= connector.format %>
+        </p>
+      </td>
+
+      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+        <p class="text-gray-900 whitespace-no-wrap">
+          <%= connector.power_type %>
+        </p>
+      </td>
+
+      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+        <p class="text-gray-900 whitespace-no-wrap">
+          <%= connector.max_voltage %>
+        </p>
+      </td>
+
+      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+        <p class="text-gray-900 whitespace-no-wrap">
+          <%= connector.max_amperage %>
+        </p>
+      </td>
+
+      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+        <p class="text-gray-900 whitespace-no-wrap">
+          <%= connector.max_electric_power * 1000 %>
+        </p>
+      </td>
+
+      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+        <p class="text-gray-900 whitespace-no-wrap">
+          <%= connector.last_updated %>
+        </p>
+      </td>
+    </tr>
+  <% end %>
+</tbody>
