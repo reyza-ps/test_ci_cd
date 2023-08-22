@@ -15,4 +15,23 @@ class Partner::Partner < ApplicationRecord
   has_many :applications, through: :developer_partners, dependent: :delete_all
 
   belongs_to :user, optional: true
+
+  before_validation :generate_required_field, on: :create
+  
+  private
+
+  def generate_required_field
+    self.code = uniq_id
+    self.registration_no = "EVC-P#{uniq_id}"
+  end
+
+  def uniq_id
+    id = DateTime.now.strftime('%Y%m%d%H%M%S%L')
+    id = id.to_i.to_s(36)
+    id.upcase
+  end
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["address", "charger_group_option", "city", "code", "confirmation_sent_at", "confirmation_token", "confirmed_at", "country", "country_code", "created_at", "email", "encrypted_password", "id", "logo", "mobile_phone", "name", "ocpi_percentage_fee", "overview", "party_id", "postcode", "registration_no", "remember_created_at", "reset_password_sent_at", "reset_password_token", "state", "unconfirmed_email", "updated_at", "user_id", "website_url"]
+  end
 end

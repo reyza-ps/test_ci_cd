@@ -8,6 +8,11 @@ Rails.application.routes.draw do
   get '/table' => 'home#table'
   root to: "home#index"
   devise_for :users
+  # Admin routes
+  namespace :admin do
+    resources :partners
+  end
+  
   devise_for :partners, class_name: 'Partner::Partner', controllers: {
     sessions:             'partner/devise/sessions',
     passwords:            'partner/devise/passwords',
