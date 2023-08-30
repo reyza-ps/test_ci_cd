@@ -1,0 +1,80 @@
+<div class="overflow-hidden bg-white shadow sm:rounded-lg">
+  <div class="px-4 py-5 sm:px-6">
+    <h3 class="text-lg font-medium leading-6 text-gray-900">Application Details</h3>
+  </div>
+  <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
+    <dl class="sm:divide-y sm:divide-gray-200">
+      <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+        <dt class="text-sm font-medium text-black-500">ID</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"><%= @application.id %></dd>
+      </div>
+      <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+        <dt class="text-sm font-medium text-black-500">Name</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"><%= @application.name %></dd>
+      </div>
+      <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+        <dt class="text-sm font-medium text-black-500">Scopes</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"><%= @application.scopes %></dd>
+      </div>
+      <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+        <dt class="text-sm font-medium text-black-500">CREDENTIALS TOKEN A</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"><%= @application.credentials_token_a %></dd>
+      </div>
+      <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+        <dt class="text-sm font-medium text-black-500">Their OCPI Versions Endpoint</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"><%= @application.ocpi_version_endpoint %></dd>
+      </div>
+      <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+        <dt class="text-sm font-medium text-black-500">Their token</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"><%= @application.their_token %></dd>
+      </div>
+      <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+        <dt class="text-sm font-medium text-black-500">Valid OCPI Configuration ?</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+          <%= @application.ocpi_validation_status %>
+          <% if @application.is_ocpi? && (@application.ocpi_pending? || @application.ocpi_invalid?) %>
+            <%= link_to 'Validate!', 
+                validate_admin_partner_oauth_application_path(partner: @partner, application: @application), 
+                class: 'ml-3 inline-flex items-center rounded border border-transparent bg-amber-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2' %>
+          <% end %>
+      </div>
+      <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+        <dt class="text-sm font-medium text-black-500">Receive PUSH from Our OCPI</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+          <%= @application.receive_push_model ? 'Yes' : 'No' %>
+          <% if @application.receive_push_model %>
+            <%= link_to 'Pause Now !', receive_push_admin_partner_oauth_application_path(partner: @partner, application: @application, receive_push_model: false), 
+                class: 'ml-3 inline-flex items-center rounded border border-transparent bg-amber-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2', method: :post, data: { turbo_method: :post } %>
+          <% else %>
+            <%= link_to 'Resume Now !', receive_push_admin_partner_oauth_application_path(partner: @partner, application: @application, receive_push_model: true), 
+                class: 'ml-3 inline-flex items-center rounded border border-transparent bg-green-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2', method: :post, data: { turbo_method: :post }  %>
+          <% end %>
+        </dd>
+      </div>
+      <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+        <dt class="text-sm font-medium text-black-500">Status</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+          <% if @application.approved_by_admin %>
+            <p class='text-green-500'>Approved</p>
+          <% else %>
+            <p class='text-yellow-500'>Waiting for Approval</p>
+          <% end %>
+        </dd>
+      </div>
+      <% if @application.ocpi_validation_status == 'ocpi_connected' %>
+        <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+          <dt class="text-sm font-medium text-black-500">Our Versions Endpoint</dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"><%= OcpiConfiguration.base_url_for(version: '') + 'versions'%></dd>
+        </div>
+      <% end %>
+    </dl>
+  </div>
+</div>
+
+<div class="flex flex-col mt-5">
+  <div class="rounded-lg bg-white shadow flex-grow">
+    <div class="px-4 py-5 sm:p-6 flex-grow">
+      <%= render 'admin/partner/oauth_applications/partials/table' %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+<%= form_for @application, url: url, method: method, html: { class: "space-y-3", role: 'form' } do |f| %>
+  <div class="space-y-8 divide-y divide-gray-200">
+    <div>
+      <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+        <div class="sm:col-span-6">
+          <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+          <div class="mt-1 flex rounded-md shadow-sm">
+            <%= f.text_field :name, required: true, placeholder: "Enter application name", class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+          </div>
+        </div>
+
+        <div class="sm:col-span-6">
+          <label for="about" class="block text-sm font-medium text-gray-700">Scopes</label>
+          <% scopes.each do |scope| %>
+            <div class="relative flex items-start mt-3">
+              <div class="flex h-5 items-center">
+                <%= check_box_tag "partner_application[scopes][]", scope, true, class: "parentCheckBox h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" %>
+              </div>
+              <div class="ml-3 text-sm">
+                <label for="comments" class="font-medium text-gray-700"><%= scope.to_s.humanize.capitalize%></label>
+              </div>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="sm:col-span-6">
+          <label for="name" class="block text-sm font-medium text-gray-700">CREDENTIALS TOKEN A</label>
+          <div class="mt-1 flex rounded-md shadow-sm">
+            <%= f.text_field :credentials_token_a, placeholder: "Enter CREDENTIALS TOKEN A", class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+          </div>
+        </div>
+
+        <div class="sm:col-span-6">
+          <label for="name" class="block text-sm font-medium text-gray-700">OCPI Versions Endpoint</label>
+          <div class="mt-1 flex rounded-md shadow-sm">
+            <%= f.text_field :ocpi_version_endpoint, placeholder: "Enter OCPI Versions Endpoint", class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pt-5">
+    <div class="flex justify-start">
+      <%= link_to "Cancel", oauth_applications_path, class: "rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" %>
+      <%= f.button 'Save', class: "ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" %>
+    </div>
+  </div>
+<% end %>

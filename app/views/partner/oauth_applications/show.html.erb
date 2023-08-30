@@ -1,0 +1,75 @@
+<div class="overflow-hidden bg-white shadow sm:rounded-lg">
+
+  <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
+    <dl class="sm:divide-y sm:divide-gray-200">
+      <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+        <dt class="text-sm font-medium text-black-500">ID</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"><%= @application.id %></dd>
+      </div>
+      <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+        <dt class="text-sm font-medium text-black-500">Name</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"><%= @application.name %></dd>
+      </div>
+      <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+        <dt class="text-sm font-medium text-black-500">Scopes</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"><%= @application.scopes %></dd>
+      </div>
+      <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+        <dt class="text-sm font-medium text-black-500">Created At</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"><%= @application.created_at.strftime('%d-%m-%y %H:%M') %></dd>
+      </div>
+      <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+        <dt class="text-sm font-medium text-black-500">Environment</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"><%= @application.environment %></dd>
+      </div>
+      <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+        <dt class="text-sm font-medium text-black-500">Status</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+          <% if @application.approved_by_admin %>
+            <p class='text-green-500'>Approved</p>
+          <% else %>
+            <p class='text-yellow-500'>Waiting for Approval</p>
+          <% end %>
+        </dd>
+      </div>
+      <% unless @application.ocpi_validation_status == 'ocpi_connected' %>
+        <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+          <dt class="text-sm font-medium text-black-500">Credentials Token A</dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+            <%= @application.credentials_token_a %>
+          </dd>
+        </div>
+        <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+          <dt class="text-sm font-medium text-black-500">OCPI Version Endpoint</dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+            <%= @application.ocpi_version_endpoint %>
+          </dd>
+        </div>
+      <% end %>
+      <% if @application.ocpi_validation_status == 'ocpi_connected' %>
+        <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+          <dt class="text-sm font-medium text-black-500">Jomcharge Version Endpoint</dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+            <%= OcpiConfiguration.base_url_for(version: '') + 'versions'  %>
+          </dd>
+        </div>
+      <% end %>
+    </dl>
+  </div>
+</div>
+
+<div class="flex flex-col mt-5">
+  <div class="rounded-lg bg-white shadow flex-grow">
+    <div class="px-4 py-5 sm:p-6 flex-grow">
+      <%= render 'admin/partner/oauth_applications/partials/table', pagy: @pagy %>
+    </div>
+  </div>
+</div>
+
+<div class="flex flex-col mt-5">
+  <div class="rounded-lg bg-white shadow flex-grow">
+    <div class="px-4 py-5 sm:p-6 flex-grow">
+      <%= render 'partner/members/partials/table', members: @members, show_action: true, pagy: @pagy_member %>
+    </div>
+  </div>
+</div>
