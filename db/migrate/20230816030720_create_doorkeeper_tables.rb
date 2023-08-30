@@ -26,6 +26,7 @@ class CreateDoorkeeperTables < ActiveRecord::Migration[7.0]
       t.string  :payment_webhook_secret
       t.string  :status_notification_webhook_key
       t.string  :status_notification_webhook_secret
+      t.string  :environment,     null: false
       t.timestamps                null: false
     end
 
@@ -86,6 +87,7 @@ class CreateDoorkeeperTables < ActiveRecord::Migration[7.0]
       # revoked after use.
       t.string   :previous_refresh_token, null: false, default: ""
       t.string   :ocpi_credentials_id
+      t.integer  :oauth_access_grant_id 
     end
 
     add_index :oauth_access_tokens, :token, unique: true

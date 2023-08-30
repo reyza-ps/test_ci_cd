@@ -58,6 +58,9 @@ Rails.application.configure do
 
   # Suppress logger output for asset requests.
   config.assets.quiet = true
+  config.assets.debug = true
+  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.perform_deliveries = true
 
   config.assets.debug = true
 

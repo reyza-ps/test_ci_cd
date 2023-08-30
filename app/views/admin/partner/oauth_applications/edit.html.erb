@@ -1,0 +1,57 @@
+<div class="flex flex-col mt-5">
+  <div class="rounded-lg bg-white shadow flex-grow">
+    <div class="px-4 py-5 sm:p-6 flex-grow">
+      <%= form_for(@application, url: admin_partner_oauth_application_path(partner_id: @partner.id, id: @application.id), class: "space-y-8 divide-y divide-gray-200", method: :put) do |f| %>
+        <div class="space-y-8 divide-y divide-gray-200">
+          <div class="pt-3">
+            <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-5">
+              <div class="col-span-5 sm:col-span-3">
+                <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Name</label>
+                <div class="mt-2">
+                  <%= f.text_field :name, autofocus: true, disabled: true, 
+                                   required: true, autocomplete: "name", 
+                                   class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-50 disabled:text-gray-500 sm:text-sm" %>
+                </div>
+              </div>
+
+              <div class="col-span-5 sm:col-span-3">
+                <label for="redirect_uri" class="block text-sm font-medium leading-6 text-gray-900">Redirect uri</label>
+                <div class="mt-2">
+                  <%= f.text_field :redirect_uri, autofocus: true, required: true, autocomplete: "redirect_uri", class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+                </div>
+              </div>
+
+              <div class="col-span-5 sm:col-span-3">
+                <label for="scopes" class="block text-sm font-medium leading-6 text-gray-900">Scopes</label>
+                <div class="mt-2">
+                  <%= f.text_field :scopes, disabled: true, autofocus: true, autocomplete: "scopes", required: true, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-50 disabled:text-gray-500 sm:text-sm" %>
+                </div>
+              </div>
+
+              <div class="col-span-5 sm:col-span-3">
+                <label for="payment_gateway_webhook" class="block text-sm font-medium leading-6 text-gray-900">Webhook Payment Gateway</label>
+                <div class="mt-2">
+                  <%= f.text_field :payment_gateway_webhook, autofocus: true, required: true, autocomplete: "payment_gateway_webhook", class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+                </div>
+              </div>
+
+              <div class="col-span-5 sm:col-span-3">
+                <label for="status_notification_webhook" class="block text-sm font-medium leading-6 text-gray-900">Webhook Status notification</label>
+                <div class="mt-2">
+                  <%= f.text_field :status_notification_webhook, autocomplete: "status_notification_webhook", required: true, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-5">
+          <div class="flex justify-start">
+            <%= link_to 'Cancel', admin_partners_path, class: "rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" %>
+            <%= f.button 'Save', class: "ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"%>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

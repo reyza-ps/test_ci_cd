@@ -10,7 +10,22 @@ Rails.application.routes.draw do
   devise_for :users
   # Admin routes
   namespace :admin do
-    resources :partners
+    resources :partners, controller: 'partner/partners', only: [:index, :show, :edit, :update] do
+      member do
+        put '/push/', to: 'partner/partners#push_charger_group', as: :push_charger_group
+        put '/download/', to: 'partner/partners#download_charger_group', as: :download_charger_group
+      end
+      
+      resources :oauth_applications, controller: 'partner/oauth_applications', except: [:index, :destroy] do
+        member do
+          get :approve
+          get :validate
+          post :receive_push
+          get :ocpi_disconnect
+          get :ocpi_modules
+        end
+      end
+    end
   end
   
   devise_for :partners, class_name: 'Partner::Partner', controllers: {

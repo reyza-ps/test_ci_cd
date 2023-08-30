@@ -1,4 +1,6 @@
 class Partner::BaseController < ActionController::Base
+  include Pagy::Backend
+  
   layout 'partner'
   before_action :authenticate_partner!
   

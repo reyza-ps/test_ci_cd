@@ -1,4 +1,6 @@
-<div>
+<%
+=begin%>
+ <div>
   <div class="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
     <div class="sm:flex sm:flex-1 sm:items-center sm:justify-between">
       <div>
@@ -35,6 +37,21 @@
             </svg>
           </a>
         </nav>
+      </div>
+    </div>
+  </div>
+</div> 
+<%
+=end%>
+
+<div>
+  <div class="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
+    <div class="sm:flex sm:flex-1 sm:items-center sm:justify-between">
+      <div>
+        <%== pagy_info(data[:pagy]) if data[:pagy].present? %>
+      </div>
+      <div class="mt-2 md:mt-0">
+        <%== pagy_nav(data[:pagy]) if data[:pagy].present? %>
       </div>
     </div>
   </div>

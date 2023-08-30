@@ -1,16 +1,13 @@
 class Partner::OauthApplicationsController < Partner::BaseController
   before_action :set_application, only: %i[show edit update destroy]
   before_action :available_scopes, only: %i[new create edit update]
+  before_action :available_ocpi_scopes, only: %i[ocpi_new ocpi_create ocpi_edit ocpi_update]
 
   def index
-    # @applications = current_partner.oauth_applications.order(id: :desc)
     @applications = current_partner.applications.order(id: :desc)
+    @pagy, @applications = pagy(@applications, items: 5)
   end
 
-  def show
-    @access_grants = @application.access_grants.joins(:access_token).order(id: :desc).page(params[:page])
-    @members       = @application.partners
-  end
 
   def new
     @application = current_partner.oauth_applications.new
@@ -46,22 +43,38 @@ class Partner::OauthApplicationsController < Partner::BaseController
     redirect_to oauth_applications_url
   end
 
+  def show
+    @pagy, @access_tokens = pagy(@application.access_tokens, items: 5)
+    @pagy_member, @members = pagy(@application.partners, items: 5)
+  end
+
+  def ocpi_modules
+    @ocpi_modules = Ocpi::Domain::Versions::Models::Endpoint.joins(
+        version_detail: {
+          version: :credential
+        }
+      )
+      .where("ocpi_credentials.id = ?", params[:ocpi_credentials_id])
+  end
+
   private
     def set_application
       @application = current_partner.applications.find_by_id(params[:id])
       if @application.blank?
         flash[:alert] = 'Applications not found or you do not have access'
-        redirect_to partner_root_path and return 
+        redirect_to partner_root_path and return
       end
     end
 
     def available_scopes
-      @scopes = Partner::Application::SCOPES.reject{ |scope| scope.in?([:ocpi_token_c, :ocpi_request]) }
+      @scopes = [:ocpi_request]
     end
 
     def application_params
-      params[:partner_application][:scopes] = 'read' if params[:partner_application][:scopes].blank?
-      params[:partner_application][:scopes] = params[:partner_application][:scopes].reject{ |scope| scope.in?([:ocpi_token_c, :ocpi_request]) }
-      params.require(:partner_application).permit(:name, :redirect_uri, :confidential, :payment_gateway_webhook, :payment_webhook_key, :payment_webhook_secret, :status_notification_webhook, :status_notification_webhook_key, :status_notification_webhook_secret, scopes: [])
+      params[:partner_application][:scopes] = 'ocpi_request' if params[:partner_application][:scopes].blank?
+      if params[:partner_application][:scopes].include? :ocpi_token_c
+        params[:partner_application][:scopes] = params[:partner_application][:scopes].reject{ |scope| scope == :ocpi_token_c }
+      end
+      params.require(:partner_application).permit(:credentials_token_a, :ocpi_version_endpoint, :name, scopes: [])
     end
 end

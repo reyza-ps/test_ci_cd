@@ -1,0 +1,50 @@
+<div class="flow-root">
+  <div class="-mx-4 -my-2 sm:-mx-6 lg:-mx-8 overflow-x-auto">
+    <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+      <table class="min-w-full divide-y divide-gray-300">
+        <thead class='uppercase'>
+          <tr>
+            <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">Email</th>
+            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Name</th>
+            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Mobile Phone</th>
+            <% if show_action %>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Status</th>
+              <% if current_partner.is_owner?(@application.try(:id)) %>
+                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Action</th>
+              <% end %>
+            <% end %>
+          </tr>
+        </thead>
+
+        <tbody class="divide-y divide-gray-200">
+          <% if @members.present? %>
+            <% @members.each do |member| %>
+              <tr>
+                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"><%= member.email %></td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= member.name %></td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= member.mobile_phone %></td>
+                <% if show_action %>
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= member.is_owner?(@application.try(:id)) ? 'Owner' : 'Member' %></td>
+                  <% if current_partner.is_owner?(@application.try(:id)) %>
+                    <% unless member.is_owner?(@application.try(:id)) %>
+                      <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        <%= link_to 'Remove', 
+                                    ocpi_modules_admin_partner_oauth_application_path(@partner, @application, ocpi_credentials_id: member.ocpi_credentials_id), 
+                                    class: "inline-flex items-center rounded border border-transparent bg-red-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2" %>
+                      </td>
+                    <% else %>
+                      <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"></td>                  
+                    <% end %>
+                  <% end %>
+                <% end %>
+              </tr>
+            <% end %>
+          <% else %>
+           <tr><td colspan='5' class="text-center whitespace-nowrap px-3 py-4 text-sm text-gray-500">No Data</td></tr>
+          <% end %>
+        </tbody> 
+      </table>
+      <%= render 'shared/pagination', data: { pagy: pagy } %>
+    </div>
+  </div>
+</div>

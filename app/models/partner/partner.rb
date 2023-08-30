@@ -18,6 +18,11 @@ class Partner::Partner < ApplicationRecord
 
   before_validation :generate_required_field, on: :create
   
+  def is_owner?(application_id=nil)
+    application = ::Partner::Application.find_by_id(application_id)
+    application.try(:owner).try(:id).eql?(self.id)
+  end
+  
   private
 
   def generate_required_field

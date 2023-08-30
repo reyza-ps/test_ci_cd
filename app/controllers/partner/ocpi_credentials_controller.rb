@@ -3,6 +3,12 @@ class Partner::OcpiCredentialsController < Partner::BaseController
   before_action :available_scopes, only: %i[new create edit update]
   before_action :available_ocpi_scopes, only: %i[ocpi_new ocpi_create ocpi_edit ocpi_update]
 
+  def index
+    @applications = current_partner.applications.order(id: :desc)
+    @pagy, @applications = pagy(@applications, items: 5)
+  end
+
+
   def new
     @application = current_partner.oauth_applications.new
   end
