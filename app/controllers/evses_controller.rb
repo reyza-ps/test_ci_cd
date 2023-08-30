@@ -4,7 +4,7 @@ class EvsesController < ApplicationController
   before_action :set_evse, only: [:show]
 
   def index
-    @evses = Evse.order('created_at asc')
+    @evses = Evse.order('created_at desc')
   end
 
   def show

@@ -4,7 +4,7 @@ class LocationsController < ApplicationController
   before_action :set_location, only: [:show]
 
   def index
-    @locations = Location.order('created_at asc')
+    @locations = Location.order('created_at desc')
   end
 
   def show; end

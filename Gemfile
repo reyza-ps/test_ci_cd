@@ -76,8 +76,8 @@ end
 gem 'awesome_print'
 gem 'grape-middleware-logger', github: 'yunanhelmy/grape-middleware-logger'
 # gem 'ocpi', git: 'git@github.com:jomcharge/ocpi.git', tag: '0.5.0'
-gem 'ocpi', git: 'git@github.com:jomcharge/ocpi.git', branch: 'master'
-# gem 'ocpi', path: '../plugins/ocpi'
+# gem 'ocpi', git: 'git@github.com:jomcharge/ocpi.git', branch: 'master'
+gem 'ocpi', path: '../ocpi'
 
 # Styling
 gem "tailwindcss-rails", "~> 2.0"

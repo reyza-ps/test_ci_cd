@@ -4,7 +4,7 @@ class ConnectorsController < ApplicationController
   before_action :set_connector, only: [:show]
 
   def index
-    @connectors = Connector.order('created_at asc')
+    @connectors = Connector.order('created_at desc')
   end
 
   def show
