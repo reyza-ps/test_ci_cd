@@ -1,44 +1,71 @@
- <div class="my-2 flex sm:flex-row flex-col">
-  <div class="flex flex-row mb-1 sm:mb-0">
-    <div class="relative">
-      <select
-          class="appearance-none h-full rounded-l border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-          <option>5</option>
-          <option>10</option>
-          <option>20</option>
-          <option>20</option>
-      </select>
-      <div
-          class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-          <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-              <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-          </svg>
-      </div>
-    </div>
-    <div class="relative">
-      <select
-          class="appearance-none h-full rounded-r border-t sm:rounded-r-none sm:border-r-0 border-r border-b block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:border-l focus:border-r focus:bg-white focus:border-gray-500">
-          <option>All</option>
-          <option>Active</option>
-          <option>Inactive</option>
-      </select>
-      <div
-          class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-          <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-              <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-          </svg>
+<%= search_form_for @q, url: connectors_path, class: "space-y-8 divide-y divide-gray-200" do |f| %>
+  <div class="space-y-8 divide-y divide-gray-200">
+    <div class="">
+      <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-8">
+        <div class="sm:col-span-2">
+          <label for="city" class="block text-sm font-medium text-gray-700">Number</label>
+          <div class="mt-1">
+            <%= f.search_field :uid_cont, placeholder: "Search Number", class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"%>
+            <%= hidden_field_tag :party_id, params[:party_id] %>
+          </div>
+        </div>
+
+        <div class="sm:col-span-2">
+          <label for="region" class="block text-sm font-medium text-gray-700">Select Type</label>
+          <div class="mt-1">
+            <%= f.select :standard_cont, options_for_select(Connector::CONNECTOR_TYPES, selected: @q.standard_cont), { include_blank: 'Select Status' }, { class: 'mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm' } %>
+          </div>
+        </div>
+
+        <div class="sm:col-span-2">
+          <label for="region" class="block text-sm font-medium text-gray-700">Select Format</label>
+          <div class="mt-1">
+            <%= f.select :format_cont, options_for_select(Connector::CONNECTOR_FORMATS, selected: @q.format_cont), { include_blank: 'Select Status' }, { class: 'mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm' } %>
+          </div>
+        </div>
+
+        <div class="sm:col-span-2">
+          <label for="region" class="block text-sm font-medium text-gray-700">Max Voltage</label>
+          <div class="mt-1">
+             <%= f.number_field :max_voltage_eq, placeholder: "Max Voltage", class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"%>
+          </div>
+        </div>
+
+        <div class="sm:col-span-2">
+          <label for="region" class="block text-sm font-medium text-gray-700">Max Amperage</label>
+          <div class="mt-1">
+             <%= f.number_field :max_amperage_eq, placeholder: "Max Amperage", class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"%>
+          </div>
+        </div>
+
+        <div class="sm:col-span-2">
+          <label for="region" class="block text-sm font-medium text-gray-700">Max Electric Power</label>
+          <div class="mt-1">
+             <%= f.number_field :max_electric_power_eq, placeholder: "Max Electric Power", class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"%>
+          </div>
+        </div>
+
+        <div class="sm:col-span-2">
+          <label for="postal-code" class="block text-sm font-medium text-gray-700">Start Updated</label>
+          <div class="mt-1">
+            <%= f.date_field :last_updated_gteq, placeholder: "Search Start Updated", class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+          </div>
+        </div>
+
+        <div class="sm:col-span-2">
+          <label for="postal-code" class="block text-sm font-medium text-gray-700">End Date</label>
+          <div class="mt-1">
+            <%= f.date_field :last_updated_lteq, placeholder: "Search Start Updated", class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <div class="block relative">
-    <span class="h-full absolute inset-y-0 left-0 flex items-center pl-2">
-        <svg viewBox="0 0 24 24" class="h-4 w-4 fill-current text-gray-500">
-            <path
-                d="M10 4a6 6 0 100 12 6 6 0 000-12zm-8 6a8 8 0 1114.32 4.906l5.387 5.387a1 1 0 01-1.414 1.414l-5.387-5.387A8 8 0 012 10z">
-            </path>
-        </svg>
-    </span>
-    <input placeholder="Search"
-        class="appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none" />
+
+  <div class="pt-5">
+    <div class="flex justify-start">
+      <%= f.button 'Search', class: "inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" %>
+      <%= link_to 'Clear Search', connectors_path, class: "ml-3 rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" %>
+    </div>
   </div>
-</div>
+<% end %>

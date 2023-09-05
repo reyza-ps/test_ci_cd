@@ -3,7 +3,7 @@ class Admin::Partner::OauthApplicationsController < AdminController
   before_action :set_application
 
   def show
-    @access_tokens = @application.access_tokens
+    @pagy, @access_tokens = pagy(@application.access_tokens, items: 5)
   end
 
   def edit;end

@@ -46,3 +46,26 @@
 .pagy-info {
   @apply text-sm text-gray-700;
 }
+
+.tab-active {
+  @apply border-indigo-500 text-indigo-600 w-1/4 py-4 px-1 text-center border-b-2 font-medium text-sm;
+}
+
+.tab-inactive {
+  @apply border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 w-1/4 py-4 px-1 text-center border-b-2 font-medium text-sm;
+}
+
+details summary { 
+  cursor: pointer;
+}
+
+details summary > * {
+  display: inline;
+}
+
+details > summary {
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}

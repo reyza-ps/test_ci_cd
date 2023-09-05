@@ -1,195 +1,61 @@
+<!-- Heading Section -->
+<div class="md:flex md:items-center md:justify-between mb-5">
+  <div class="min-w-0 flex-1">
+    <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-xl sm:tracking-tight">Location Detail</h2>
+  </div>
+  <div class="mt-4 flex md:mt-0 md:ml-4">
+  </div>
+</div>
+<!-- End Heading Section -->
+
+<div class='px-6' data-controller="tabs">
+  <div class="sm:hidden">
+    <label for="tabs" class="sr-only">Select a tab</label>
+    <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
+    <select id="tabs" name="tabs" class="block w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500">
+      <option selected>Location</option>
+      <option>Evses & Connectors</option>
+      <option>Logs</option>
+    </select>
+  </div>
+  <div class="hidden sm:block">
+    <div class="border-b border-gray-200">
+      <nav class="-mb-px flex" aria-label="Tabs">
+        <!-- Current: "border-indigo-500 text-indigo-600", Default: "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" -->
+        <a href="#" data-tabs-target="tab"  data-action="click->tabs#changeTab" class="tab-active">Location</a>
+        <a href="#" data-tabs-target="tab"  data-action="click->tabs#changeTab" class="tab-inactive">Evses & Connectors</a>
+        <a href="#" data-tabs-target="tab"  data-action="click->tabs#changeTab" class="tab-inactive">Logs</a>
+      </nav>
+    </div>
+  </div>
+
+
 <%= form_with model: @location do |location| %>
-  <div class="p-6 flex items-center justify-center">
-    <div class="bg-white rounded shadow-lg p-4 px-4 mb-6">
-      <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-1">
-        <div class="lg:col-span-2">
-          <div class="grid gap-4 text-sm grid-cols-2 md:grid-cols-6">
-
-            <div class="md:col-span-5">
-              <%= location.check_box :publish, disabled: true %>
-              <%= location.label :publish, "Publish" %>
-            </div>
-
-            <div class="md:col-span-3">
-              <%= location.label :uid, "UID*" %>
-              <%= location.text_field :uid, class: "h-10 border mt-1 rounded w-full bg-gray-50", disabled: true %>
-            </div>
-
-            <div class="md:col-span-1">
-              <%= location.label :party_id, "Party ID*" %>
-              <div class="h-10 bg-gray-50 flex border border-gray-200 rounded items-center mt-1">
-                <%= location.text_field :party_id, class: "px-4 appearance-none outline-none text-gray-800 w-full bg-transparent", disabled: true %>
-              </div>
-            </div>
-
-            <div class="md:col-span-1">
-              <%= location.label :country_code, "Country Code*" %>
-              <div class="h-10 bg-gray-50 flex border border-gray-200 rounded items-center mt-1">
-                <%= location.text_field :country_code, class: "px-4 appearance-none outline-none text-gray-800 w-full bg-transparent", disabled: true %>
-              </div>
-            </div>
-
-            <div class="md:col-span-5">
-              <%= location.label :name, "Name" %>
-              <%= location.text_field :name, class: "h-10 border mt-1 rounded px-4 w-full bg-gray-50", disabled: true %>
-            </div>
-
-            <div class="md:col-span-5">
-              <%= location.label :address, "Address*" %>
-              <%= location.text_field :address, class: "h-10 border mt-1 rounded px-4 w-full bg-gray-50", disabled: true %>
-            </div>
-
-            <div class="md:col-span-3">
-              <%= location.label :state, "State" %>
-              <%= location.text_field :state, class: "h-10 border mt-1 rounded w-full bg-gray-50", disabled: true %>
-            </div>
-
-            <div class="md:col-span-1">
-              <%= location.label :city, "City*" %>
-              <div class="h-10 bg-gray-50 flex border border-gray-200 rounded items-center mt-1">
-                <%= location.text_field :city, class: "px-4 appearance-none outline-none text-gray-800 w-full bg-transparent", disabled: true %>
-              </div>
-            </div>
-
-            <div class="md:col-span-1">
-              <%= location.label :country, "Country*" %>
-              <div class="h-10 bg-gray-50 flex border border-gray-200 rounded items-center mt-1">
-                <%= location.text_field :country, class: "px-4 appearance-none outline-none text-gray-800 w-full bg-transparent", disabled: true %>
-              </div>
-            </div>
-
-            <div class="md:col-span-5">
-              <%= location.label :postal_code, "Postal Code" %>
-              <%= location.text_field :postal_code, class: "h-10 border mt-1 rounded w-full bg-gray-50", disabled: true %>
-            </div>
-
-            <div class="md:col-span-3">
-              <%= location.label :time_zone, "Time Zone*" %>
-              <%= location.text_field :time_zone, class: "h-10 border mt-1 rounded w-full bg-gray-50", disabled: true %>
-            </div>
-
-            <div class="md:col-span-2">
-              <%= location.label :last_updated, "Last Updated*" %>
-              <%= location.text_field :last_updated, class: "h-10 border mt-1 rounded w-full bg-gray-50", disabled: true %>
-            </div>
-
-            <div class="md:col-span-5">
-              <details open>
-                <summary class="flex justify-between items-center font-medium cursor-pointer list-none">
-                  <span> <b>Coordinates</b></span>
-                </summary>
-              </details>
-            </div>
-
-            <%= location.fields_for :coordinates, @location.coordinates do |coordinates_field| %>
-              <div class="md:col-span-3">
-                <%= coordinates_field.label :latitude, "Latitude*" %>
-                <%= coordinates_field.text_field :latitude, class: "h-10 border mt-1 rounded w-full bg-gray-50", disabled: true %>
-              </div>
-
-              <div class="md:col-span-2">
-                <%= coordinates_field.label :longitude, "Longitude*" %>
-                <%= coordinates_field.text_field :longitude, class: "h-10 border mt-1 rounded w-full bg-gray-50", disabled: true %>
-              </div>
-            <% end %>
-
-            <div class="md:col-span-5">
-              <details open>
-                <summary class="flex justify-between items-center font-medium cursor-pointer list-none">
-                  <span> <b>Facilities</b></span>
-                </summary>
-              </details>
-            </div>
-
-            <div class="md:col-span-3">
-              <%= location.label :parking_type, "Parking Type" %>
-              <%= location.text_field :parking_type, class: "h-10 border mt-1 rounded w-full bg-gray-50", disabled: true %>
-            </div>
-
-            <div class="md:col-span-2">
-              <%= location.label :facilities, "Facilities" %>
-              <%= location.text_field :facilities, class: "h-10 border mt-1 rounded w-full bg-gray-50", disabled: true %>
-            </div>
-
-            <div class="md:col-span-5">
-              <details open>
-                <summary class="flex justify-between items-center font-medium cursor-pointer list-none">
-                  <span> <b>Business Detail</b></span>
-                </summary>
-              </details>
-            </div>
-
-            <%= location.fields_for :operator, @location.operator do |operator_field| %>
-              <div class="md:col-span-3">
-                <%= operator_field.label :name, "Operator" %>
-                <%= operator_field.text_field :name, class: "h-10 border mt-1 rounded w-full bg-gray-50", disabled: true %>
-              </div>
-            <% end %>
-
-            <%= location.fields_for :sub_operator, @location.sub_operator do |sub_operator_field| %>
-              <div class="md:col-span-1">
-                <%= sub_operator_field.label :name, "Sub Operator" %>
-                <%= sub_operator_field.text_field :name, class: "h-10 border mt-1 rounded w-full bg-gray-50", disabled: true %>
-              </div>
-            <% end %>
-
-            <%= location.fields_for :owner, @location.owner do |owner_field| %>
-              <div class="md:col-span-1">
-                <%= owner_field.label :name, "Owner" %>
-                <%= owner_field.text_field :name, class: "h-10 border mt-1 rounded w-full bg-gray-50", disabled: true %>
-              </div>
-            <% end %>
-
-
-            <div class="md:col-span-5">
-              <details open>
-                <summary class="flex justify-between items-center font-medium cursor-pointer list-none">
-                  <span> <b>Opening Times</b></span>
-                </summary>
-              </details>
-            </div>
-
-            <div class="md:col-span-3">
-              <%= location.check_box :charging_when_closed, disabled: true %>
-              <%= location.label :charging_when_closed, "Charging when closed" %>
-            </div>
-
-            <%= location.fields_for :opening_times, @location.opening_times do |opening_times_field| %>
-              <div class="md:col-span-2">
-                <%= opening_times_field.check_box :twentyfourseven, disabled: true %>
-                <%= opening_times_field.label :twentyfourseven, "Twentyfourseven" %>
-              </div>
-
-              <% if opening_times_field.object.regular_hours.present? %>
-                <div class="md:col-span-5">
-                  <details open>
-                    <summary class="flex justify-between items-center font-medium cursor-pointer list-none">
-                      <span> <b>Regular Hours</b></span>
-                    </summary>
-                  </details>
-                </div>
-              <% end %>
-
-              <%= opening_times_field.fields_for :regular_hours do |regular_hour_field| %>
-                <div class="md:col-span-2">
-                  <%= regular_hour_field.check_box :weekday, disabled: true %>
-                  <%= regular_hour_field.label :weekday, "Weekday" %>
-                </div>
-
-                <div class="md:col-span-2">
-                  <%= regular_hour_field.check_box :period_begin, disabled: true %>
-                  <%= regular_hour_field.label :period_begin, "Period Begin" %>
-                </div>
-
-                <div class="md:col-span-2">
-                  <%= regular_hour_field.check_box :period_end, disabled: true %>
-                  <%= regular_hour_field.label :period_end, "Period End" %>
-                </div>
-              <% end %>
-            <% end %>
-          </div>
-        </div>
+  <div data-tabs-target="content" class="flex flex-col tab-content" aria-hidden="true">
+    <div class="rounded-lg bg-white  flex-grow">
+      <div class="py-5 flex-grow items-center">
+        <%= render 'locations/show/location', location: location %>
       </div>
     </div>
   </div>
+
+  <div data-tabs-target="content" class="flex flex-col tab-content" aria-hidden="true">
+    <div class="rounded-lg bg-white  flex-grow">
+      <div class="py-5 flex-grow items-center">
+        <%= render 'locations/show/evses', location: location %>
+      </div>
+    </div>
+  </div>
+
+  <div data-tabs-target="content" class="flex flex-col tab-content" aria-hidden="true">
+    <div class="rounded-lg bg-white  flex-grow">
+      <div class="py-5 flex-grow items-center">
+        <%= render 'shared/logs', api_request_logs: @api_request_logs %>
+      </div>
+    </div>
+  </div>
+</div>
 <% end %>
+
+
+

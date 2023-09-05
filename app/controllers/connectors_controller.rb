@@ -4,7 +4,8 @@ class ConnectorsController < ApplicationController
   before_action :set_connector, only: [:show]
 
   def index
-    @connectors = Connector.order('created_at desc')
+    @q = Connector.order('created_at desc').ransack(params[:q])
+    @pagy, @connectors = pagy(@q.result(distinct: true), items: 10)
   end
 
   def show

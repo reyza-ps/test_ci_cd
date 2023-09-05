@@ -1,0 +1,46 @@
+<div class="flow-root overflow-x-auto">
+  <div class="-mx-4 -my-2 sm:-mx-6 lg:-mx-8 overflow-x-auto">
+    <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+      <table class="min-w-full divide-y divide-gray-300">
+        <thead class='uppercase'>
+          <tr>
+            <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">Id</th>
+            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Request Type</th>
+            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Description</th>
+            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Status</th>
+            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Endpoint</th>
+            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Partner</th>
+            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Date</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+          <% if @logs.present? %>
+            <% @logs.each do |log| %>
+              <tr>
+                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
+                  <%= link_to "#{log.id}", log_path(log.id), class: "font-medium text-blue-600 dark:text-blue-500 hover:underline" %>
+                </td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= log.request_type.to_s.upcase  %></td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= log.description %></td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                  <span class="inline-flex items-center rounded-full bg-<%=log_class(log.status_code)%>-100 px-2.5 py-0.5 text-xs font-medium text-<%=log_class(log.status_code)%>-800">
+                    <svg class="-ml-0.5 mr-1.5 h-2 w-2 text-<%= log_class(log.status_code) %>-400" fill="currentColor" viewBox="0 0 8 8">
+                      <circle cx="4" cy="4" r="3" />
+                    </svg>
+                    <%= "#{log.status_code}" %>
+                  </span>
+                </td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= log.endpoint.to_s.truncate(45) %></td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= log.oauth_application&.name %></td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= log.created_at.strftime("%d-%m-%y - %H:%M:%S") %></td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr class='text-center'><td colspan='7' class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">No Logs Data</td></tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= render 'shared/pagination', data: { pagy: pagy } %>
+    </div>
+  </div>
+</div>

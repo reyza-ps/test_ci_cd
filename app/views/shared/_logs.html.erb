@@ -1,0 +1,48 @@
+<div class="overflow-hidden bg-white shadow sm:rounded-lg">
+  <div class="px-4 py-5 sm:px-6">
+    <h3 class="text-lg font-medium leading-6 text-gray-900">OCPI Logs</h3>
+  </div>
+  <div class='max-h-[500px] overflow-y-auto'>
+    <% api_request_logs.each do |api_req_log| %>
+      <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
+        <dl class='py-5'>
+          <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <dt class="text-sm font-medium text-gray-500">Endpoint</dt>
+            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"><%= "#{api_req_log.endpoint}" %></dd>
+          </div>
+          <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:py-2 sm:px-6">
+            <dt class="text-sm font-medium text-gray-500">Description</dt>
+            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"><%= "#{api_req_log.description}" %></dd>
+          </div>
+          <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:py-2 sm:px-6">
+            <dt class="text-sm font-medium text-gray-500">Status</dt>
+            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+              <span class="inline-flex items-center rounded-full bg-<%=log_class(api_req_log.status_code)%>-100 px-2.5 py-0.5 text-xs font-medium text-<%=log_class(api_req_log.status_code)%>-800">
+                <svg class="-ml-0.5 mr-1.5 h-2 w-2 text-<%= log_class(api_req_log.status_code) %>-400" fill="currentColor" viewBox="0 0 8 8">
+                  <circle cx="4" cy="4" r="3" />
+                </svg>
+                <%= "#{api_req_log.status_code}" %>
+              </span>
+            </dd>
+          </div>
+          <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:py-2 sm:px-6">
+            <dt class="text-sm font-medium text-gray-500">Date</dt>
+            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"><%= "#{api_req_log.created_at.strftime("%d-%m-%y - %H:%M:%S")}" %></dd>
+          </div>
+          <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:py-2 sm:px-6">
+            <dt class="text-sm font-medium text-gray-500">Headers</dt>
+            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"> 
+              <%= "#{api_req_log.request_headers}" %>
+            </dd>
+          </div>
+          <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:py-2 sm:px-6">
+            <dt class="text-sm font-medium text-gray-500"></dt>
+            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"> 
+              <%= "#{api_req_log.request_type} #{api_req_log.response_body}" %>
+            </dd>
+          </div>
+        </dl>
+      </div>
+    <% end %>
+  </div>
+</div>

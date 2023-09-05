@@ -22,7 +22,7 @@
               <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= application.secret %></td>
               <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= application.environment %></td>
               <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                <% if !application.approved_by_admin %>
+                <% if application.approved_by_admin %>
                   <p class="text-green-500">Approved</p>
                 <% else %>
                   <p class="text-amber-500">Waiting for Approval</p>

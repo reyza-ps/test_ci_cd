@@ -1,9 +1,35 @@
-<div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
-  <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
-    <table class="min-w-full leading-normal">
-      <%= render 'evses/index/header' %>
-      <%= render 'evses/index/row' %>
-    </table>
-    <%= render 'evses/index/pagination' %>
+<div class="flow-root overflow-x-auto">
+  <div class="-mx-4 -my-2 sm:-mx-6 lg:-mx-8 overflow-x-auto">
+    <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+      <table class="min-w-full divide-y divide-gray-300">
+        <thead class='uppercase'>
+          <tr>
+            <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">Uid</th>
+            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Evse Id</th>
+            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Status</th>
+            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Capabilities</th>
+            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Last Updated</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+          <% if @evses.present? %>
+            <% @evses.each do |evse| %>
+              <tr>
+                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
+                  <%= link_to "#{evse.uid}", evse_path(evse.id), class: "font-medium text-blue-600 dark:text-blue-500 hover:underline" %>
+                </td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= evse.evse_id %></td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= evse.status %></td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= evse.capabilities %></td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= evse.last_updated%></td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr class='text-center'><td colspan='5' class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">No Evses Data</td></tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= render 'shared/pagination', data: { pagy: pagy } %>
+    </div>
   </div>
 </div>

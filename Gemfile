@@ -80,11 +80,22 @@ group :development do
   gem "letter_opener"
 end
 
+group :development, :test do
+  gem 'factory_bot_rails'
+  gem 'faker'
+end
+
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
+  gem 'database_cleaner-active_record'
+  gem 'webmock'
+  gem 'rspec-rails'
+  gem 'rubocop-rails'
+  gem 'rubocop-rake'
+  gem 'rubocop-rspec'
 end
 
 # OCPI Stuff

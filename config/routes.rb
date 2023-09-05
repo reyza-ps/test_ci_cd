@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :connectors, only: [:index, :show]
   resources :evses, only: [:index, :show]
   resources :locations, only: [:index, :show]
+  resources :logs, only: [:index, :show]
   get 'locations/show'
   mount Ocpi::Engine => '/'
   get '/' => 'home#index'

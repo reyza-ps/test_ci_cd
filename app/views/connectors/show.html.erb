@@ -1,4 +1,99 @@
-<div>
-  <h1 class="font-bold text-4xl">Connectors#show</h1>
-  <p>Find me in app/views/connectors/show.html.erb</p>
+<!-- Heading Section -->
+<div class="md:flex md:items-center md:justify-between mb-5">
+  <div class="min-w-0 flex-1">
+    <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-xl sm:tracking-tight">Connector Detail</h2>
+  </div>
+  <div class="mt-4 flex md:mt-0 md:ml-4">
+  </div>
 </div>
+<!-- End Heading Section -->
+<div data-tabs-target="content" class="flex flex-col tab-content" aria-hidden="true">
+  <div class="rounded-lg bg-white  flex-grow">
+    <div class="py-5 flex-grow items-center">
+      <%= form_with model: @connector do |connector| %>
+        <div class="overflow-hidden bg-white shadow sm:rounded-lg">
+          <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+            <div class="border-b border-gray-200 bg-indigo-500 px-4 py-2 mt-5 mb-5 px-4">
+              <h3 class="text-md font-medium leading-6 text-white">Connector</h3>
+            </div>
+            <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-12 mt-4 px-4">
+              <div class="sm:col-span-6">
+                <label for="uid" class="block text-sm font-medium leading-6 text-gray-900">Uid<span class='text-red-600'> *</span></label>
+                <div class="mt-2">
+                  <%= connector.text_field :uid, disabled: true, autocomplete: "uid", class: "disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-50 disabled:text-gray-500 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+                </div>
+              </div>
+              
+              <div class="sm:col-span-6">
+                <label for="standard" class="block text-sm font-medium leading-6 text-gray-900">Standard<span class='text-red-600'> *</span></label>
+                <div class="mt-2">
+                  <%= connector.text_field :standard, disabled: true, autocomplete: "standard", class: "disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-50 disabled:text-gray-500 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+                </div>
+              </div>
+
+              <div class="sm:col-span-6">
+                <label for="format" class="block text-sm font-medium leading-6 text-gray-900">Format<span class='text-red-600'> *</span></label>
+                <div class="mt-2">
+                  <%= connector.text_field :format, disabled: true, autocomplete: "format", class: "disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-50 disabled:text-gray-500 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+                </div>
+              </div>
+
+              <div class="sm:col-span-6">
+                <label for="power_type" class="block text-sm font-medium leading-6 text-gray-900">Power Type<span class='text-red-600'> *</span></label>
+                <div class="mt-2">
+                  <%= connector.text_field :power_type, disabled: true, autocomplete: "power_type", class: "disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-50 disabled:text-gray-500 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+                </div>
+              </div>
+
+              <div class="sm:col-span-6">
+                <label for="max_voltage" class="block text-sm font-medium leading-6 text-gray-900">Max Voltage<span class='text-red-600'> *</span></label>
+                <div class="mt-2">
+                  <%= connector.text_field :max_voltage, disabled: true, autocomplete: "max_voltage", class: "disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-50 disabled:text-gray-500 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+                </div>
+              </div>
+
+              <div class="sm:col-span-6">
+                <label for="max_amperage" class="block text-sm font-medium leading-6 text-gray-900">Max Amperage<span class='text-red-600'> *</span></label>
+                <div class="mt-2">
+                  <%= connector.text_field :max_amperage, disabled: true, autocomplete: "max_amperage", class: "disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-50 disabled:text-gray-500 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+                </div>
+              </div>
+
+              <div class="sm:col-span-6">
+                <label for="max_electric_power" class="block text-sm font-medium leading-6 text-gray-500">Max Electric Power (watt)</label>
+                <div class="mt-2">
+                  <%= connector.text_field :max_electric_power, disabled: true, autocomplete: "max_electric_power", class: "disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-50 disabled:text-gray-500 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+                </div>
+              </div>
+
+              <div class="sm:col-span-6">
+                <label for="tariff_ids" class="block text-sm font-medium leading-6 text-gray-900">Tariff Ids<span class='text-red-600'> *</span></label>
+                <div class="mt-2">
+                  <%= connector.text_field :tariff_ids, disabled: true, autocomplete: "tariff_ids", class: "disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-50 disabled:text-gray-500 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+                </div>
+              </div>
+
+              <div class="sm:col-span-6">
+                <label for="terms_and_conditions" class="block text-sm font-medium leading-6 text-gray-500">Terms and conditions</label>
+                <div class="mt-2">
+                  <%= connector.text_field :terms_and_conditions, disabled: true, autocomplete: "terms_and_conditions", class: "disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-50 disabled:text-gray-500 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+                </div>
+              </div>
+
+              <div class="sm:col-span-6">
+                <label for="last_updated" class="block text-sm font-medium leading-6 text-gray-900">Last Updated<span class='text-red-600'> *</span></label>
+                <div class="mt-2">
+                  <%= connector.text_field :last_updated, disabled: true, autocomplete: "last_updated", class: "disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-50 disabled:text-gray-500 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+

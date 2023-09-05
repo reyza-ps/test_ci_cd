@@ -7,14 +7,14 @@ class Admin::Partner::PartnersController < AdminController
   end
 
   def show
-    @applications = @partner.oauth_applications.order(id: :desc).page(params[:page])
+    @applications = @partner.oauth_applications.order(id: :desc)#.page(params[:page])
   end
 
   def edit; end
 
   def update
     if @partner.update(partner_params)
-      @partner.generate_partner_charger_group(params[:partner_charger_groups])
+      # @partner.generate_partner_charger_group(params[:partner_charger_groups])
       redirect_to admin_partners_path, flash: { success: 'Partner updated successfully.' }
     else
       render :edit

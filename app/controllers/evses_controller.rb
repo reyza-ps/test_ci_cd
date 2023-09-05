@@ -4,7 +4,8 @@ class EvsesController < ApplicationController
   before_action :set_evse, only: [:show]
 
   def index
-    @evses = Evse.order('created_at desc')
+    @q = Evse.order('created_at desc').ransack(params[:q])
+    @pagy, @evses = pagy(@q.result(distinct: true), items: 10)
   end
 
   def show

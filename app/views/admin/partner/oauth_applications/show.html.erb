@@ -1,7 +1,20 @@
-<div class="overflow-hidden bg-white shadow sm:rounded-lg">
-  <div class="px-4 py-5 sm:px-6">
-    <h3 class="text-lg font-medium leading-6 text-gray-900">Application Details</h3>
+<!-- Heading Section -->
+<div class="md:flex md:items-center md:justify-between mb-5">
+  <div class="min-w-0 flex-1">
+    <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-xl sm:tracking-tight">Application Detail</h2>
   </div>
+  <div class="mt-4 flex md:mt-0 md:ml-4">
+  </div>
+</div>
+<!-- End Heading Section -->
+<div class="overflow-hidden bg-white shadow sm:rounded-lg">
+  <%
+=begin%>
+ <div class="px-4 py-5 sm:px-6">
+    <h3 class="text-lg font-medium leading-6 text-gray-900">Application Details</h3>
+  </div> 
+<%
+=end%>
   <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
     <dl class="sm:divide-y sm:divide-gray-200">
       <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
@@ -74,7 +87,7 @@
 <div class="flex flex-col mt-5">
   <div class="rounded-lg bg-white shadow flex-grow">
     <div class="px-4 py-5 sm:p-6 flex-grow">
-      <%= render 'admin/partner/oauth_applications/partials/table' %>
+      <%= render 'admin/partner/oauth_applications/partials/table', pagy: @pagy %>
     </div>
   </div>
 </div>
