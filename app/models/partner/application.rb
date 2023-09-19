@@ -53,6 +53,10 @@ class Partner::Application < ActiveRecord::Base
     scopes.map(&:to_s).include?('ocpi_request') || scopes.map(&:to_s).include?('ocpi_token_c')
   end
 
+  def generate_authorization
+    ::Partner::AccessGrant.create(redirect_uri: redirect_uri, application_id: id, expires_in: 3600, resource_owner_id: owner.id, scopes: scopes)
+  end
+
   def has_any_token?
     access_tokens.any?
   end

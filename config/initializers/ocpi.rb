@@ -18,6 +18,8 @@ OcpiConfiguration.setup do |config|
   config.market_roles = %w[CPO EMSP]
   config.enabled_modules.emsp = %w[locations tokens sessions tariffs commands cdrs]
   config.enabled_modules.cpo = %w[locations tokens sessions tariffs commands cdrs]
+  config.credentials.callbacks.register = 'OcpiWorker::MappingParty'
+
 
   # Logger
   config.logger.enable = false

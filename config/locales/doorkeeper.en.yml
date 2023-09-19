@@ -136,6 +136,11 @@ en:
           notice: 'Application deleted.'
         update:
           notice: 'Application updated.'
+        ocpi:
+          invalid: 
+            notice: 'Invalid OCPI'
+          valid: 
+            notice: 'valid OCPI'
       authorized_applications:
         destroy:
           notice: 'Application revoked.'

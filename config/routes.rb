@@ -45,5 +45,8 @@ Rails.application.routes.draw do
   
   namespace :partner do
     root 'dashboard#index'
+    post '/tokens/ocpi_request' => 'tokens#ocpi_request'
+    post '/tokens/ocpi_connect' => 'tokens#ocpi_connect'
+    delete '/tokens/ocpi_disconnect' => 'tokens#ocpi_disconnect'
   end
 end

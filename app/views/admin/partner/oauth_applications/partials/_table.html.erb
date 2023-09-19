@@ -21,7 +21,7 @@
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= access_token.scopes %></td>
                 <td class="relative items-center whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                   <% if access_token.scopes.include?('ocpi_request') %>
-                    <%= link_to partner_tokens_ocpi_connect_path(token: access_token.token), class: "inline-flex items-center rounded border border-transparent bg-green-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2" do %>
+                    <%= link_to partner_tokens_ocpi_connect_path(token: access_token.token), data: { turbo_method: :post }, class: "inline-flex items-center rounded border border-transparent bg-green-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2" do %>
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M5.636 5.636a9 9 0 1012.728 0M12 3v9" />
                       </svg>

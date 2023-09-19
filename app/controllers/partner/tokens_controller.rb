@@ -19,6 +19,7 @@ class Partner::TokensController < Doorkeeper::TokensController
   end
 
   def ocpi_request
+    is_success =  false
     begin
       response = strategy.authorize
       body     = response.body
@@ -30,10 +31,13 @@ class Partner::TokensController < Doorkeeper::TokensController
       self.headers.merge! response.headers
       self.response_body = body.to_json
       self.status        = response.status
+      is_success = true
     rescue Exception => e
       current_access_token.destroy if current_access_token.present?
-      render json: { message: e.to_s, is_success: false, access_token: nil }
+      #render json: { message: e.to_s, is_success: false, access_token: nil }
     end
+    flash = is_success ?  {success: "Generate access token successfully"}  : {error: 'Something went wrong'}
+    # admin_partner_oauth_application_path(partner_id: @application.owner.id, id: @application.id), flash: flash
   end
 
   def ocpi_connect
