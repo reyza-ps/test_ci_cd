@@ -89,30 +89,30 @@
 </div>
 
 <div data-controller='authorization'>
-  <%
-=begin%>
+</div>
+<div class="flex flex-col mt-5">
+  <div class="rounded-lg bg-white shadow flex-grow">
+    <div class="sm:flex sm:items-center mt-5 ml-5">
+      <div class="sm:flex-auto">
  <%= link_to 'New Authorization', 'javascript:void(0)', 
               data: {
                 'client-id': @application.uid, 'redirect-uri': @application.redirect_uri, 
                 'response-type': 'code', scope: @application.scopes, action: "authorization#create"
-              }, class: "mt-5 inline-flex items-center rounded border border-transparent bg-blue-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" %> 
-<%
-=end%>
-
-</div>
-
-<% if @application.access_grants.present?%>
-<%= link_to 'Generate Access Token', 
-            partner_tokens_ocpi_request_path(
-              client_id: @application.uid, client_secret: @application.secret, 
-              code: @application.access_grants.last.token, redirect_uri: @application.redirect_uri, 
-              grant_type: 'authorization_code'
-            ), 
-            data: { turbo_method: :post },
-            class: 'mt-5 ml-3 inline-flex items-center rounded border border-transparent bg-green-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2'  %>
-<% end %>
-<div class="flex flex-col mt-5">
-  <div class="rounded-lg bg-white shadow flex-grow">
+              }, class: "inline-flex items-center justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:w-auto" %> 
+        <% if @application.access_grants.present?%>
+          <%= link_to 'Generate Access Token', 
+                    partner_tokens_ocpi_request_path(
+                      client_id: @application.uid, client_secret: @application.secret, 
+                      code: @application.access_grants.last.token, redirect_uri: @application.redirect_uri, 
+                      grant_type: 'authorization_code'
+                    ), 
+                    data: { turbo_method: :post },
+                    class: 'inline-flex items-center justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 sm:w-auto'  %>
+        <% end %>
+      </div>
+      <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+      </div>
+    </div>
     <div class="px-4 py-5 sm:p-6 flex-grow">
       <%= render 'admin/partner/oauth_applications/partials/table', pagy: @pagy %>
     </div>

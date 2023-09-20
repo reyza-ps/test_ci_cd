@@ -20,7 +20,11 @@
                 </td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= evse.evse_id %></td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= evse.status %></td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= evse.capabilities %></td>
+                <td class="px-3 py-4 text-sm text-gray-500">
+                  <% evse.capabilities.each do |cap| %>
+                    <span class='my-1 inline-flex items-center bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-purple-800'><%= cap.to_s.upcase %></span>
+                  <% end %>
+                </td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= evse.last_updated%></td>
               </tr>
             <% end %>

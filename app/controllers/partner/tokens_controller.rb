@@ -44,7 +44,8 @@ class Partner::TokensController < Doorkeeper::TokensController
     current_access_token = Partner::AccessToken.find_by token: params[:token]
     application = current_access_token.application
     partner = application.owner
-    OcpiWorker::RegisterToParty.perform_async(params[:token])
+    RegisterToPartyJob.perform_async(params[:token])
+    # OcpiWorker::RegisterToParty.perform_async(params[:token])
 
     if params[:partner].present? && params[:partner].to_s == 'true'
       redirect_to partner_ocpi_credential_path(application)

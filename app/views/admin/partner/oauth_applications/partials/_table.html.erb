@@ -25,16 +25,16 @@
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M5.636 5.636a9 9 0 1012.728 0M12 3v9" />
                       </svg>
-                      <label>Connect with our OCPI!</label>
+                      <label>Connect with our HUB!</label>
                     <% end %>
                   <% end %>
                   <% if @application.is_ocpi? && @application.ocpi_connected? && @application.approved_by_admin %>
-                    <%= link_to 'View OCPI Modules', ocpi_modules_admin_partner_oauth_application_path(@partner, @application, ocpi_credentials_id: access_token.ocpi_credentials_id), class: "inline-flex items-center rounded border border-transparent bg-green-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2" %>
+                    <%#= link_to 'View OCPI Modules', ocpi_modules_admin_partner_oauth_application_path(@partner, @application, ocpi_credentials_id: access_token.ocpi_credentials_id), class: "inline-flex items-center rounded border border-transparent bg-green-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2" %>
                     <%= link_to partner_tokens_ocpi_disconnect_path(token: access_token.token), class: "inline-flex items-center rounded border border-transparent bg-red-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2" do %>
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M5.636 5.636a9 9 0 1012.728 0M12 3v9" />
                       </svg>
-                      <label>Disconnect with our OCPI!</label>
+                      <label>Disconnect with our HUB!</label>
                     <% end %>
                   <% end %>
                 </td>

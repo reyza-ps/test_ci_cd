@@ -26,4 +26,8 @@ module ApplicationHelper
       "text-gray-700 hover:text-indigo-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
     end
   end
+
+  # def badge(value)
+  #   <span class='inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-purple-800'>Badge</span> 
+  # end
 end
