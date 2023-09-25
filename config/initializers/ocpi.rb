@@ -24,6 +24,7 @@ OcpiConfiguration.setup do |config|
   # Logger
   config.logger.enable = false
   config.logger.type = 'sidekiq'
+  config.hub.broadcast_client_info = 'BroadcastClientInfo'
 
   # config.logger.incoming = 'Partner::OcpiApiRequestLogWorker'
   # config.logger.outgoing = 'Partner::OcpiApiRequestLogWorker'

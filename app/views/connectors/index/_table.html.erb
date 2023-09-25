@@ -28,7 +28,7 @@
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= connector.power_type%></td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= connector.max_voltage%></td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= connector.max_amperage%></td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= connector.max_electric_power * 1000%></td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= connector.max_electric_power.to_f * 1000%></td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= connector.last_updated%></td>
               </tr>
             <% end %>
