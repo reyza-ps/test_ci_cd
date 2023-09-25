@@ -33,7 +33,6 @@ class Admin::Partner::OauthApplicationsController < AdminController
       result = ocpi_configuration.call(url: @application.ocpi_version_endpoint)
       if ocpi_configuration.valid?
         @application.update(ocpi_validation_status: :ocpi_valid)
-        @application.generate_authorization
         flash[:success] = I18n.t(:notice, scope: %i[doorkeeper flash applications ocpi valid])
       else
         flash[:error] = I18n.t(:notice, scope: %i[doorkeeper flash applications ocpi invalid])

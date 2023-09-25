@@ -51,23 +51,6 @@
                 class: 'ml-3 inline-flex items-center rounded border border-transparent bg-amber-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2' %>
           <% end %>
       </div>
-      <%
-=begin%>
- <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-        <dt class="text-sm font-medium text-black-500">Receive PUSH from Our OCPI</dt>
-        <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-          <%= @application.receive_push_model ? 'Yes' : 'No' %>
-          <% if @application.receive_push_model %>
-            <%= link_to 'Pause Now !', receive_push_admin_partner_oauth_application_path(partner: @partner, application: @application, receive_push_model: false), 
-                class: 'ml-3 inline-flex items-center rounded border border-transparent bg-amber-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2', method: :post, data: { turbo_method: :post } %>
-          <% else %>
-            <%= link_to 'Resume Now !', receive_push_admin_partner_oauth_application_path(partner: @partner, application: @application, receive_push_model: true), 
-                class: 'ml-3 inline-flex items-center rounded border border-transparent bg-green-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2', method: :post, data: { turbo_method: :post }  %>
-          <% end %>
-        </dd>
-      </div> 
-<%
-=end%>
       <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
         <dt class="text-sm font-medium text-black-500">Status</dt>
         <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
@@ -94,26 +77,22 @@
   <div class="rounded-lg bg-white shadow flex-grow">
     <div class="sm:flex sm:items-center mt-5 ml-5">
       <div class="sm:flex-auto">
- <%= link_to 'New Authorization', 'javascript:void(0)', 
-              data: {
-                'client-id': @application.uid, 'redirect-uri': @application.redirect_uri, 
-                'response-type': 'code', scope: @application.scopes, action: "authorization#create"
-              }, class: "inline-flex items-center justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:w-auto" %> 
-        <% if @application.access_grants.present?%>
-          <%= link_to 'Generate Access Token', 
-                    partner_tokens_ocpi_request_path(
-                      client_id: @application.uid, client_secret: @application.secret, 
-                      code: @application.access_grants.last.token, redirect_uri: @application.redirect_uri, 
-                      grant_type: 'authorization_code'
-                    ), 
-                    data: { turbo_method: :post },
-                    class: 'inline-flex items-center justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 sm:w-auto'  %>
-        <% end %>
+        <% if @application.ocpi_valid? && @application.approved_by_admin && !@application.has_any_token? %>
+          <%= turbo_frame_tag "create_modal" do %>
+            <%= link_to 'New Authorization', 
+                        oauth_authorization_path(
+                          client_id: @application.uid, client_secret: @application.secret, 
+                          code: @application.access_grants.last&.token, redirect_uri: @application.redirect_uri, 
+                          grant_type: 'authorization_code', previous_path: request.path
+                        ), 
+                  data: { turbo_method: :post }, class: "inline-flex items-center justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:w-auto" %> 
+          <% end %>
+        <% end%>
       </div>
       <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
       </div>
     </div>
-    <div class="px-4 py-5 sm:p-6 flex-grow">
+    <div class="px-4 py-5 sm:p-6 flex-grow" data-controller='tokens'>
       <%= render 'admin/partner/oauth_applications/partials/table', pagy: @pagy %>
     </div>
   </div>

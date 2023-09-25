@@ -8,4 +8,8 @@ class Partner::BaseController < ActionController::Base
     return if partner_signed_in?
     redirect_to new_partner_session_path
   end
+
+  def render_turbo_flash
+    turbo_stream.update("flash", partial: "shared/flash")
+  end
 end

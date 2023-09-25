@@ -20,6 +20,7 @@ class Partner::OauthApplicationsController < Partner::BaseController
       flash[:notice] = I18n.t(:notice, scope: %i[doorkeeper flash applications create])
       redirect_to oauth_applications_url
     else
+      flash[:alert] = @application.errors.full_messages.first
       render :new
     end
   end

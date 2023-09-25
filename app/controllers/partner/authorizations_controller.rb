@@ -1,6 +1,7 @@
 class Partner::AuthorizationsController < Doorkeeper::AuthorizationsController
   skip_forgery_protection
   before_action :get_application, only: [:create, :destroy]
+  before_action :previous_path
 
   def create
     if @application.approved_by_admin?
@@ -26,9 +27,13 @@ class Partner::AuthorizationsController < Doorkeeper::AuthorizationsController
   end
 
   private
+  
   def get_application
     @application   = ::Partner::Application.find_by_uid(params[:client_id])
     @authorization = { message: 'Application not found', is_success: false, authorization_code: nil } if @application.blank?
   end
 
+  def previous_path
+    @previous_path = params[:previous_path]
+  end
 end

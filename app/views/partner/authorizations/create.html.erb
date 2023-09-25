@@ -1,0 +1,33 @@
+<%= turbo_frame_tag "create_modal" do %>
+  <div class="relative z-50" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+    <div class="fixed inset-0 z-50 overflow-y-auto" data-controller='tokens'>
+      <div class="items-baseline flex min-h-full items-start justify-center p-4 text-center sm:p-0">
+        <div class="divide-y divide-gray-200 relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+          <div class="text-center divide-y divide-gray-200 items-center">
+            <h2 class="text-lg font-medium leading-6 text-green-500" id="modal-title">Authorization</h2>
+            <div class="mt-4 mb-8 pt-4">
+              <h3 class="text-lg text-gray-500" id='auth-status' data-tokens-target="message" data-tokens-message-value="">Your application authorized!</h3>
+              <h3 class="text-lg text-black font-bold" data-tokens-target="token" data-tokens-token-value=""></h3>
+              <% if @application.approved_by_admin? %>
+                <%= link_to 'Generate Access Token', 'javascript:void(0)', id: 'btn-generate-token',
+                          data: { 
+                                  turbo_method: :post, action: 'tokens#generateToken',
+                                  client_id: @application.uid, client_secret: @application.secret, 
+                                  code: @application.access_grants.last.token, redirect_uri: @application.redirect_uri, 
+                                  grant_type: 'authorization_code', 'tokens-target': 'button'
+                          },
+                          class: 'mt-5 inline-flex items-center justify-center rounded-md border border-blue-600 bg-white-600 px-4 py-2 text-sm font-medium text-blue-600 shadow-sm hover:bg-white-700 focus:outline-none focus:ring-2 focus:ring-white-500 focus:ring-offset-2 sm:w-auto'  %>
+              <% end %>
+            </div>
+          </div>
+          <div class="mt-5 sm:mt-4 sm:flex items-baseline">
+            <p class='leading-tight inline-fle text-xs text-red-500 mr-auto'><span>*</span>Click 'Generate Access Token' for create your access token</p>
+            <%= link_to 'Done', (@previous_path || root_path), data: { turbo: :false },
+                        class: 'mt-5 inline-flex items-center justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 sm:w-auto'  %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -1,8 +1,11 @@
 import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
+  static targets = ['token', 'message']
+  
     connect() {
         console.log(this.element)
     }
+    
     create(e) {
       console.log(e.target)
       let data = { 

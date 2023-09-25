@@ -2,13 +2,26 @@ module ApplicationHelper
   include Pagy::Frontend
   
   def flash_class(level)
+    bg = ''
+    text = ''
+    btn = ''
     case level
-    when :success then "green"
-    when :notice then "green"
-    when :alert then "yellow"
-    when :error then "red"
-    when :warning then "yellow"
+    when :success, :notice
+      bg = "rounded-md bg-green-50 p-4 mb-5"
+      text = "text-sm font-medium text-green-800"
+      btn = "closealertbutton inline-flex rounded-md bg-green-50 p-1.5 text-green-500 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-green-50"
+    when :alert, :warning 
+      bg = "rounded-md bg-yellow-50 p-4 mb-5"
+      text = "text-sm font-medium text-yellow-800"
+      btn = "closealertbutton inline-flex rounded-md bg-yellow-50 p-1.5 text-yellow-500 hover:bg-yellow-100 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-offset-2 focus:ring-offset-yellow-50"
+    when :error
+      bg = "rounded-md bg-red-50 p-4 mb-5"
+      text = "text-sm font-medium text-red-800"
+      btn = "closealertbutton inline-flex rounded-md bg-red-50 p-1.5 text-red-500 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 focus:ring-offset-red-50"
     end
+    {
+      background: bg, text: text, button: btn
+    }
   end
 
   def log_class(status_code)
