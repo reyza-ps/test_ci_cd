@@ -1,0 +1,51 @@
+<div class="flow-root">
+  <div class="-mx-4 -my-2 sm:-mx-6 lg:-mx-8 overflow-x-auto">
+    <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+      <table class="min-w-full divide-y divide-gray-300">
+        <thead>
+          <tr>
+            <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">NO</th>
+            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">ACCESS TOKEN</th>
+            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">STATUS</th>
+            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">SCOPES</th>
+            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">ACTION</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+          <% if @access_tokens.present? %>
+            <% @access_tokens.each.with_index(1) do |access_token, idx| %>
+              <tr>
+                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"><%= idx %></td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= access_token.token %></td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= access_token.revoked_at.blank? ? 'Active' : 'Non-active'%></td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= access_token.scopes %></td>
+                <td class="relative items-center whitespace-nowrap py-4 pl-3 pr-4 text-left text-sm font-medium sm:pr-0">
+                  <% if access_token.scopes.include?('ocpi_request') %>
+                    <%= link_to partner_tokens_ocpi_connect_path(token: access_token.token), data: { turbo_method: :post }, class: "inline-flex items-center rounded border border-transparent bg-green-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2" do %>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5.636 5.636a9 9 0 1012.728 0M12 3v9" />
+                      </svg>
+                      <label>Connect with HUB!</label>
+                    <% end %>
+                  <% end %>
+                  <% if @application.is_ocpi? && @application.ocpi_connected? && @application.approved_by_admin %>
+                    <%#= link_to 'View OCPI Modules', ocpi_modules_admin_partner_oauth_application_path(@partner, @application, ocpi_credentials_id: access_token.ocpi_credentials_id), class: "inline-flex items-center rounded border border-transparent bg-green-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2" %>
+                    <%= link_to partner_tokens_ocpi_disconnect_path(token: access_token.token), data: { turbo_method: :delete, turbo_confirm: 'Are you sure to Disconnect?' }, method: :delete, class: "inline-flex items-center rounded border border-transparent bg-red-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2" do %>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5.636 5.636a9 9 0 1012.728 0M12 3v9" />
+                      </svg>
+                      <label>Disconnect with HUB!</label>
+                    <% end %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          <% else %>
+           <tr><td colspan='5' class="text-center whitespace-nowrap px-3 py-4 text-sm text-gray-500">No Data Access Token</td></tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= render 'shared/pagination', data: { pagy: pagy } %>
+    </div>
+  </div>
+</div>

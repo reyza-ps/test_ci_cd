@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :locations, only: [:index, :show]
   resources :credentials, only: [:index, :show]
   resources :logs, only: [:index, :show]
+  resources :client_infos, only: [:index]
   get 'locations/show'
   mount Ocpi::Engine => '/'
   get '/' => 'home#index'

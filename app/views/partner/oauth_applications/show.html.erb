@@ -56,7 +56,7 @@
       <% end %>
       <% if @application.ocpi_validation_status == 'ocpi_connected' %>
         <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-          <dt class="text-sm font-medium text-black-500">Jomcharge Version Endpoint</dt>
+          <dt class="text-sm font-medium text-black-500">HUB Version Endpoint</dt>
           <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
             <%= OcpiConfiguration.base_url_for(version: '') + 'versions'  %>
           </dd>
@@ -69,16 +69,17 @@
 <div class="flex flex-col mt-5">
   <div class="rounded-lg bg-white shadow flex-grow">
     <div class="px-4 py-5 sm:p-6 flex-grow">
-      <%= render 'admin/partner/oauth_applications/partials/table', pagy: @pagy %>
+      <%= render 'partner/oauth_applications/table', pagy: @pagy %>
     </div>
   </div>
 </div>
 
+<!--
 <div class="flex flex-col mt-5">
   <div class="rounded-lg bg-white shadow flex-grow">
-  
     <div class="px-4 py-5 sm:p-6 flex-grow">
-      <%= render 'partner/members/partials/table', members: @members, show_action: true, pagy: @pagy_member %>
+      <%#= render 'partner/members/partials/table', members: @members, show_action: true, pagy: @pagy_member %>
     </div>
   </div>
 </div>
+-->

@@ -16,17 +16,17 @@ OcpiConfiguration.setup do |config|
 
   # OCPI Version
   config.market_roles = %w[CPO EMSP]
-  config.enabled_modules.emsp = %w[locations tokens sessions tariffs commands cdrs]
-  config.enabled_modules.cpo = %w[locations tokens sessions tariffs commands cdrs]
+  config.enabled_modules.emsp = %w[locations tokens sessions tariffs commands cdrs hubclientinfo]
+  config.enabled_modules.cpo = %w[locations tokens sessions tariffs commands cdrs hubclientinfo hub_client_info]
   config.credentials.callbacks.register = 'OcpiWorker::MappingParty'
 
 
   # Logger
-  config.logger.enable = false
+  config.logger.enable = true
   config.logger.type = 'sidekiq'
   config.hub.broadcast_client_info = 'BroadcastClientInfo'
-
-  # config.logger.incoming = 'Partner::OcpiApiRequestLogWorker'
-  # config.logger.outgoing = 'Partner::OcpiApiRequestLogWorker'
+  config.logger.incoming = 'OcpiApiRequestLogJob'
+  config.logger.outgoing = 'OcpiApiRequestLogJob'
+  
   # config.partner = 'Partner::Partner'
 end

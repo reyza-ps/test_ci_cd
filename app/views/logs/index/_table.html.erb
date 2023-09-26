@@ -23,8 +23,8 @@
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= log.request_type.to_s.upcase  %></td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= log.description %></td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                  <span class="inline-flex items-center rounded-full bg-<%=log_class(log.status_code)%>-100 px-2.5 py-0.5 text-xs font-medium text-<%=log_class(log.status_code)%>-800">
-                    <svg class="-ml-0.5 mr-1.5 h-2 w-2 text-<%= log_class(log.status_code) %>-400" fill="currentColor" viewBox="0 0 8 8">
+                  <span class="inline-flex items-center rounded-full <%=log.status_code.in?(['200', '201']) ? 'bg-green-100' : 'bg-red-100'%> px-2.5 py-0.5 text-xs font-medium text-<%=log_class(log.status_code)%>-800">
+                    <svg class="-ml-0.5 mr-1.5 h-2 w-2 <%=log.status_code.in?(['200', '201']) ? 'text-green-400' : 'text-red-400'%>" fill="currentColor" viewBox="0 0 8 8">
                       <circle cx="4" cy="4" r="3" />
                     </svg>
                     <%= "#{log.status_code}" %>

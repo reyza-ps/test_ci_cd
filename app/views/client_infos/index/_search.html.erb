@@ -1,0 +1,57 @@
+<%= search_form_for @q, url: client_infos_path, class: "space-y-8 divide-y divide-gray-200" do |f| %>
+  <div class="space-y-8 divide-y divide-gray-200">
+    <div class="">
+      <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+        <div class="sm:col-span-2">
+          <label for="city" class="block text-sm font-medium text-gray-700">Party ID</label>
+          <div class="mt-1">
+            <%= f.search_field :party_id_cont, placeholder: "Search Party ID", class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"%>
+            <%= hidden_field_tag :party_id, params[:party_id] %>
+          </div>
+        </div>
+
+        <div class="sm:col-span-2">
+          <label for="region" class="block text-sm font-medium text-gray-700">Country Code</label>
+          <div class="mt-1">
+             <%= f.search_field :country_code_cont, placeholder: "Search Country Code", class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"%>
+          </div>
+        </div>
+
+        <div class="sm:col-span-2">
+          <label for="region" class="block text-sm font-medium text-gray-700">Role</label>
+          <div class="mt-1">
+             <%= f.search_field :role_cont, placeholder: "Search Role", class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"%>
+          </div>
+        </div>
+
+        <div class="sm:col-span-2">
+          <label for="region" class="block text-sm font-medium text-gray-700">Status</label>
+          <div class="mt-1">
+             <%= f.search_field :status_cont, placeholder: "Search Status", class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"%>
+          </div>
+        </div>
+
+        <div class="sm:col-span-2">
+          <label for="postal-code" class="block text-sm font-medium text-gray-700">Start Updated</label>
+          <div class="mt-1">
+            <%= f.date_field :last_updated_gteq, placeholder: "Search Start Updated", class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+          </div>
+        </div>
+
+        <div class="sm:col-span-2">
+          <label for="postal-code" class="block text-sm font-medium text-gray-700">End Date</label>
+          <div class="mt-1">
+            <%= f.date_field :last_updated_lteq, placeholder: "Search Start Updated", class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pt-5">
+    <div class="flex justify-start">
+      <%= f.button 'Search', class: "inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" %>
+      <%= link_to 'Clear Search', client_infos_path, class: "ml-3 rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" %>
+    </div>
+  </div>
+<% end %>
