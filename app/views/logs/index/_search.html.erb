@@ -30,6 +30,13 @@
              <%= f.search_field :endpoint_cont, placeholder: "Search Endpoint", class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"%>
           </div>
         </div>
+
+        <div class="sm:col-span-2">
+          <label for="region" class="block text-sm font-medium text-gray-700">Partner</label>
+          <div class="mt-1">
+             <%= f.search_field :oauth_application_name_cont, placeholder: "Search Partner", class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"%>
+          </div>
+        </div>
       </div>
     </div>
   </div>

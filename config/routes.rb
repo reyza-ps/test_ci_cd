@@ -29,6 +29,8 @@ Rails.application.routes.draw do
         end
       end
     end
+
+    resources :admins
   end
   
   devise_for :partners, class_name: 'Partner::Partner', controllers: {

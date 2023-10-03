@@ -45,9 +45,8 @@ class CreateApiLogRequest
     data[:response_body]    = args['type'].to_s == 'incoming' ? {} : args['response']['body']
     data[:status_code] = args['response']['status']
 
-    data[:oauth_application_id] = fetch_current_application.try(&:id)
+    data[:oauth_application_id] = fetch_current_application.try(&:id) || current_application&.id
     data[:request_type] = args['type']
-
     Partner::ApiRequestLog.create!(data)
   end
 

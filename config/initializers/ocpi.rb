@@ -16,8 +16,8 @@ OcpiConfiguration.setup do |config|
 
   # OCPI Version
   config.market_roles = %w[CPO EMSP]
-  config.enabled_modules.emsp = %w[locations tokens sessions tariffs commands cdrs hubclientinfo]
-  config.enabled_modules.cpo = %w[locations tokens sessions tariffs commands cdrs hubclientinfo hub_client_info]
+  config.enabled_modules.emsp = %w[locations tokens sessions tariffs commands cdrs]
+  config.enabled_modules.cpo = %w[locations tokens sessions tariffs commands cdrs hubclientinfo]
   config.credentials.callbacks.register = 'OcpiWorker::MappingParty'
 
 

@@ -31,7 +31,7 @@ class Partner::ApiRequestLog < LogsDb
   private
 
   def self.ransackable_attributes(auth_object = nil)
-    ["created_at", "description", "endpoint", "environment", "http_method", "id", "oauth_application_id", "request_headers", "request_params", "request_type", "response_body", "status_code", "updated_at"]
+    ["oauth_application_name", "created_at", "description", "endpoint", "environment", "http_method", "id", "oauth_application_id", "request_headers", "request_params", "request_type", "response_body", "status_code", "updated_at"]
   end
 
   def self.ransackable_associations(auth_object = nil)
