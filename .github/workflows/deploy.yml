@@ -34,7 +34,7 @@ jobs:
 
       - uses: webfactory/ssh-agent@v0.7.0
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh-private-key: ${{ secrets.JOMCHARGE_HUB_STAGING_DEPLOYMENT }}
 
       - name: Set up Docker Buildx
         id: buildx
