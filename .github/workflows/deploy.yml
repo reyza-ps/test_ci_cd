@@ -18,6 +18,8 @@ jobs:
       KAMAL_REGISTRY_USERNAME: ${{ secrets.KAMAL_REGISTRY_USERNAME }}
       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
       POSTGRES_DB_HOST: ${{ secrets.POSTGRES_DB_HOST }}
+      OCPI_SCHEME: 'http'
+      OCPI_BASE_URL: 'http://18.141.161.216'
 
     steps:
       - name: Checkout code
