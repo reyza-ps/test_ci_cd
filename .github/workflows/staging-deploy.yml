@@ -21,5 +21,4 @@ jobs:
       - uses: webfactory/ssh-agent@v0.8.0
         with:
           ssh-private-key: ${{ secrets.JOMCHARGE_HUB_STAGING_DEPLOYMENT }}
-      - run: |
-        bundle exec kamal deploy --color -s git_ref=$GITHUB_SHA
+      - run: bundle exec kamal deploy --color -s git_ref=$GITHUB_SHA
