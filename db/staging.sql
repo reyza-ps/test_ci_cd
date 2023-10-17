@@ -1,0 +1,1 @@
+CREATE DATABASE jomcharge_hub_db;

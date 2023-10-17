@@ -1,17 +1,21 @@
 class Partner::MembersController < Partner::BaseController
   layout 'partner'
-  skip_before_action :authenticate_partner!, only: [:new, :create]
-  before_action :set_application, only: [:new, :create, :destroy]
+  skip_before_action :authenticate_partner!, only: %i[new create]
+  before_action :set_application, only: %i[new create destroy]
 
   def index
-    @members = ::Partner::Partner.joins(:applications => :partners).where('developer_partners_oauth_applications_join.partner_id = ?', current_partner.id).uniq
+    @members = ::Partner::Partner.joins(applications: :partners).where(
+      'developer_partners_oauth_applications_join.partner_id = ?', current_partner.id
+    ).uniq
   end
 
-  def new;end
+  def new; end
 
   def create
     partner = Partner::Partner.find_by_email(member_params[:email])
-    unless @application.has_member?(partner.try(:id))
+    if @application.has_member?(partner.try(:id))
+      redirect_to oauth_applications_path, notice: 'Already join as members'
+    else
       payload = {
         name: "#{@application.owner.name}-Developer",
         address: @application.owner.address,
@@ -21,7 +25,7 @@ class Partner::MembersController < Partner::BaseController
         postcode: @application.owner.postcode,
         overview: @application.owner.overview,
         website_url: @application.owner.website_url,
-        password: '12345678' 
+        password: '12345678'
       }
 
       if partner.present?
@@ -36,8 +40,6 @@ class Partner::MembersController < Partner::BaseController
           redirect_to oauth_applications_path, alert: @member.errors.full_messages.first
         end
       end
-    else
-      redirect_to oauth_applications_path, notice: 'Already join as members'
     end
   end
 
@@ -57,6 +59,7 @@ class Partner::MembersController < Partner::BaseController
   end
 
   private
+
   def member_params
     params.require(:members).permit(:email, :mobile_phone)
   end
@@ -64,5 +67,4 @@ class Partner::MembersController < Partner::BaseController
   def set_application
     @application = ::Partner::Application.find_by_uid(params[:uid])
   end
-
 end

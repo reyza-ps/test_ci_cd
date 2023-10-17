@@ -7,18 +7,19 @@ RSpec.describe Partner::AccessToken, type: :model do
   end
 
   let(:partner) { create :partner }
-  let(:oauth_application) do 
+  let(:oauth_application) do
     create :oauth_application, owner_id: partner.id, owner_type: 'Partner::Partner',
                                approved_by_admin: true, name: 'razer', scopes: ['ocpi_request']
   end
   let(:ocpi_credential) { create :ocpi_credential }
   let(:access_grant) do
-    create :oauth_access_grant, redirect_uri: oauth_application.redirect_uri, application_id: oauth_application.id, 
-                                expires_in: 3600, resource_owner_id: oauth_application.owner.id, 
+    create :oauth_access_grant, redirect_uri: oauth_application.redirect_uri, application_id: oauth_application.id,
+                                expires_in: 3600, resource_owner_id: oauth_application.owner.id,
                                 scopes: oauth_application.scopes
   end
   let(:oauth_access_token) do
-    create :oauth_access_token, application_id: oauth_application.id, resource_owner_id: partner.id, oauth_access_grant_id: access_grant.id, ocpi_credentials_id: ocpi_credential.id
+    create :oauth_access_token, application_id: oauth_application.id, resource_owner_id: partner.id,
+                                oauth_access_grant_id: access_grant.id, ocpi_credentials_id: ocpi_credential.id
   end
 
   describe 'create_relations' do
@@ -31,17 +32,15 @@ RSpec.describe Partner::AccessToken, type: :model do
   end
 
   describe 'update_to_token_c' do
-
     it 'return access_token relation' do
       oauth_access_token
-      described_class.update_to_token_c(access_token: oauth_access_token, ocpi_credential: ocpi_credential)
+      described_class.update_to_token_c(access_token: oauth_access_token, ocpi_credential:)
 
       expect(oauth_application.reload.ocpi_validation_status).to eq 'ocpi_connected'
     end
   end
 
   describe 'reset_ocpi_config!' do
-
     it 'return access_token relation' do
       oauth_access_token
       described_class.reset_ocpi_config!(current_access_token: oauth_access_token)
@@ -50,5 +49,3 @@ RSpec.describe Partner::AccessToken, type: :model do
     end
   end
 end
-
-

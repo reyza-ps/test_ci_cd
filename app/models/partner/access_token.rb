@@ -3,7 +3,8 @@ class Partner::AccessToken < ActiveRecord::Base
 
   belongs_to :access_grant, class_name: 'Partner::AccessGrant', foreign_key: :oauth_access_grant_id, optional: true
 
-  belongs_to :ocpi_credential, class_name: '::Ocpi::Domain::Credentials::Models::Credential', optional: true, foreign_key: :ocpi_credentials_id
+  belongs_to :ocpi_credential, class_name: '::Ocpi::Domain::Credentials::Models::Credential', optional: true,
+                               foreign_key: :ocpi_credentials_id
 
   class << self
     def create_relations(access_grant_token:, access_token:)
@@ -17,7 +18,8 @@ class Partner::AccessToken < ActiveRecord::Base
       acc_token = ::Partner::AccessToken.find_by_token(access_token.token)
       application = acc_token.application
       Partner::AccessToken.transaction do
-        acc_token.update(token: ocpi_credential.token, ocpi_credentials_id: ocpi_credential.id,scopes: ['ocpi_token_c'])
+        acc_token.update(token: ocpi_credential.token, ocpi_credentials_id: ocpi_credential.id,
+                         scopes: ['ocpi_token_c'])
         application.update(ocpi_validation_status: :ocpi_connected)
       end
       acc_token

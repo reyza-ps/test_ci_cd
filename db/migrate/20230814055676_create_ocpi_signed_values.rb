@@ -5,7 +5,7 @@ class CreateOcpiSignedValues < ActiveRecord::Migration[7.0]
       t.text :nature
       t.text :plain_data
       t.text :blob_signed_data
-      
+
       t.timestamps
     end
   end

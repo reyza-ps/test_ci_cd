@@ -2,7 +2,7 @@ class Partner::Partner < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   mount_uploader :logo, CoverImageUploader
-  
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :confirmable
@@ -17,12 +17,12 @@ class Partner::Partner < ApplicationRecord
   belongs_to :user, optional: true
 
   before_validation :generate_required_field, on: :create
-  
-  def is_owner?(application_id=nil)
+
+  def is_owner?(application_id = nil)
     application = ::Partner::Application.find_by_id(application_id)
-    application.try(:owner).try(:id).eql?(self.id)
+    application.try(:owner).try(:id).eql?(id)
   end
-  
+
   private
 
   def generate_required_field
@@ -36,7 +36,8 @@ class Partner::Partner < ApplicationRecord
     id.upcase
   end
 
-  def self.ransackable_attributes(auth_object = nil)
-    ["address", "charger_group_option", "city", "code", "confirmation_sent_at", "confirmation_token", "confirmed_at", "country", "country_code", "created_at", "email", "encrypted_password", "id", "logo", "mobile_phone", "name", "ocpi_percentage_fee", "overview", "party_id", "postcode", "registration_no", "remember_created_at", "reset_password_sent_at", "reset_password_token", "state", "unconfirmed_email", "updated_at", "user_id", "website_url"]
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[address charger_group_option city code confirmation_sent_at confirmation_token confirmed_at
+       country country_code created_at email encrypted_password id logo mobile_phone name ocpi_percentage_fee overview party_id postcode registration_no remember_created_at reset_password_sent_at reset_password_token state unconfirmed_email updated_at user_id website_url]
   end
 end

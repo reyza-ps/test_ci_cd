@@ -1,7 +1,7 @@
 class Partner::Application < ActiveRecord::Base
   include ::Doorkeeper::Orm::ActiveRecord::Mixins::Application
 
-  SCOPES = [:write, :update, :read, :delete, :ocpi_request, :ocpi_token_c]
+  SCOPES = %i[write update read delete ocpi_request ocpi_token_c]
 
   serialize :scopes
 
@@ -15,7 +15,8 @@ class Partner::Application < ActiveRecord::Base
 
   has_many :access_grants, class_name: 'Partner::AccessGrant', foreign_key: :application_id, dependent: :destroy
   has_many :access_tokens, class_name: 'Partner::AccessToken', foreign_key: :application_id, dependent: :destroy
-  has_many :api_request_logs, class_name: 'Partner::ApiRequestLog', foreign_key: :oauth_application_id, dependent: :destroy
+  has_many :api_request_logs, class_name: 'Partner::ApiRequestLog', foreign_key: :oauth_application_id,
+                              dependent: :destroy
   has_many :developer_partners
   has_many :partners, through: :developer_partners, dependent: :delete_all
 
@@ -24,12 +25,16 @@ class Partner::Application < ActiveRecord::Base
   scope :approved, -> { where(approved_by_admin: true) }
   scope :has_status_notification_webhook, -> { approved.where.not(status_notification_webhook: [nil, '']) }
 
-  enum ocpi_validation_status: [:ocpi_pending, :ocpi_valid, :ocpi_invalid, :ocpi_connected]
+  enum ocpi_validation_status: %i[ocpi_pending ocpi_valid ocpi_invalid ocpi_connected]
 
   def remove_white_space
-    custom_name = name.gsub!(/[^0-9A-Za-z]/, ' ') #remove all special char
-    custom_name = name.split.each{|i| i.capitalize!}.join('') rescue 'Application'
-    self.name   = custom_name
+    custom_name = name.gsub!(/[^0-9A-Za-z]/, ' ') # remove all special char
+    custom_name = begin
+      name.split.each { |i| i.capitalize! }.join('')
+    rescue StandardError
+      'Application'
+    end
+    self.name = custom_name
   end
 
   def set_default_environment
@@ -37,12 +42,12 @@ class Partner::Application < ActiveRecord::Base
   end
 
   def set_redirect_uri
-    self.redirect_uri = "urn:ietf:wg:oauth:2.0:oob" if redirect_uri.blank?
+    self.redirect_uri = 'urn:ietf:wg:oauth:2.0:oob' if redirect_uri.blank?
   end
 
   def add_to_members(member_id: nil)
     member_id = member_id.blank? ? owner_id : member_id
-    Partner::DeveloperPartner.create(partner_id: member_id, application_id: self.id)
+    Partner::DeveloperPartner.create(partner_id: member_id, application_id: id)
   end
 
   def has_member?(partner_id)
@@ -54,7 +59,8 @@ class Partner::Application < ActiveRecord::Base
   end
 
   def generate_authorization
-    ::Partner::AccessGrant.create(redirect_uri: redirect_uri, application_id: id, expires_in: 3600, resource_owner_id: owner.id, scopes: scopes)
+    ::Partner::AccessGrant.create(redirect_uri:, application_id: id, expires_in: 3600,
+                                  resource_owner_id: owner.id, scopes:)
   end
 
   def has_any_token?
@@ -63,10 +69,11 @@ class Partner::Application < ActiveRecord::Base
 
   def their_token
     return nil unless is_ocpi?
+
     acc_token = access_tokens.where.not(ocpi_credentials_id: nil).order(created_at: :desc).limit(1).last
-    if acc_token
-      acc_token.ocpi_credential.try(:token_b)
-    end
+    return unless acc_token
+
+    acc_token.ocpi_credential.try(:token_b)
   end
 
   def ocpi_reset!

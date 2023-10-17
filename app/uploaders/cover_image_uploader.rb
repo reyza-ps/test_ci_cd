@@ -33,22 +33,22 @@ class CoverImageUploader < CarrierWave::Uploader::Base
     process resize_to_limit: [800, 800]
   end
 
-  version :medium, :from_version => :large do
+  version :medium, from_version: :large do
     process resize_to_limit: [500, 500]
   end
 
-  version :thumb, :from_version => :medium do
+  version :thumb, from_version: :medium do
     process resize_to_fit: [80, 80]
   end
 
   version :square do
-    process :resize_to_fill => [500, 500]
+    process resize_to_fill: [500, 500]
   end
 
   # Add an allowlist of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   def extension_allowlist
-    %w(jpg jpeg gif png)
+    %w[jpg jpeg gif png]
   end
 
   # Override the filename of the uploaded files:

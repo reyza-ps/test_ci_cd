@@ -15,7 +15,7 @@ class CreateOcpiLocations < ActiveRecord::Migration[7.0]
       t.uuid :operator_id
       t.uuid :sub_operator_id
       t.uuid :owner_id
-      t.string :facilities, array:true, default: []
+      t.string :facilities, array: true, default: []
       t.string :time_zone
       t.boolean :charging_when_closed
       t.datetime :last_updated

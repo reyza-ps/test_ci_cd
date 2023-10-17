@@ -4,8 +4,8 @@ class DeviseCreatePartners < ActiveRecord::Migration[7.0]
   def change
     create_table :partners do |t|
       ## Database authenticatable
-      t.string :email,              null: false, default: ""
-      t.string :encrypted_password, null: false, default: ""
+      t.string :email,              null: false, default: ''
+      t.string :encrypted_password, null: false, default: ''
 
       ## Recoverable
       t.string   :reset_password_token
@@ -56,7 +56,7 @@ class DeviseCreatePartners < ActiveRecord::Migration[7.0]
     add_index :partners, :email,                unique: true
     add_index :partners, :reset_password_token, unique: true
     add_index :partners, :confirmation_token,   unique: true
-    add_index :partners, [:party_id, :country_code]
+    add_index :partners, %i[party_id country_code]
     # add_index :partners, :unlock_token,         unique: true
 
     add_reference :partners, :user, index: true

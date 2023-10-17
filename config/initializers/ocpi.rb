@@ -2,8 +2,8 @@
 
 OcpiConfiguration.setup do |config|
   # Configure the base url
-  config.scheme = Rails.application.credentials.ocpi[:scheme]
-  config.base_url = Rails.application.credentials.ocpi[:base_url]
+  config.scheme = ENV['OCPI_SCHEME']
+  config.base_url = ENV['OCPI_BASE_URL']
   config.base_path = '/ocpi/'
 
   # Debug grape endpoint
@@ -20,13 +20,12 @@ OcpiConfiguration.setup do |config|
   config.enabled_modules.cpo = %w[locations tokens sessions tariffs commands cdrs hubclientinfo]
   config.credentials.callbacks.register = 'OcpiWorker::MappingParty'
 
-
   # Logger
   config.logger.enable = true
   config.logger.type = 'sidekiq'
   config.hub.broadcast_client_info = 'BroadcastClientInfo'
   config.logger.incoming = 'OcpiApiRequestLogJob'
   config.logger.outgoing = 'OcpiApiRequestLogJob'
-  
+
   # config.partner = 'Partner::Partner'
 end

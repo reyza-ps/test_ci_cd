@@ -1,5 +1,5 @@
 class CreateApiLogRequest
-  attr_accessor :extras, :current_application
+  attr_accessor :extras, :current_application, :headers, :token, :args
 
   def initialize(args = {})
     @args = args
@@ -8,8 +8,6 @@ class CreateApiLogRequest
     @token = nil
     @current_application = nil
   end
-
-  attr_accessor :extras, :headers, :token, :current_application, :args
 
   def perform
     if args['type'].to_s == 'incoming'
@@ -26,11 +24,11 @@ class CreateApiLogRequest
 
     if credential
       access_token = Partner::AccessToken.find_by ocpi_credentials_id: credential.id
-      current_application = access_token.application if access_token  
+      current_application = access_token.application if access_token
     end
 
-    if args['type'] == 'outgoing' && credential.nil?
-      current_application = Partner::Application.find_by(credentials_token_a: token) if token
+    if args['type'] == 'outgoing' && credential.nil? && token
+      current_application = Partner::Application.find_by(credentials_token_a: token)
     end
 
     data = {}
@@ -39,10 +37,10 @@ class CreateApiLogRequest
     data[:description] = "OCPI API #{args['type']} request #{http_method(args)}"
     data[:http_method] = http_method(args)
     # request
-    data[:request_params]     = args['request']['params']
-    data[:request_headers]     = headers
+    data[:request_params] = args['request']['params']
+    data[:request_headers] = headers
     # response
-    data[:response_body]    = args['type'].to_s == 'incoming' ? {} : args['response']['body']
+    data[:response_body] = args['type'].to_s == 'incoming' ? {} : args['response']['body']
     data[:status_code] = args['response']['status']
 
     data[:oauth_application_id] = fetch_current_application.try(&:id) || current_application&.id
@@ -51,16 +49,17 @@ class CreateApiLogRequest
   end
 
   private
-  
-  def fetch_current_application
-    return  current_application if current_application.present?
 
-    return OpenStruct.new(@extras) if   extras.any?
+  def fetch_current_application
+    return current_application if current_application.present?
+
+    OpenStruct.new(@extras) if extras.any?
   end
 
   def http_method(args)
     return args['request']['headers']['REQUEST_METHOD'] if args['type'] == 'incoming'
     return args['http_method'] if args['type'] == 'outgoing'
-    return 'UNKWOWN'
+
+    'UNKWOWN'
   end
 end

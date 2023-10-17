@@ -5,7 +5,7 @@ class EnableExtensions < ActiveRecord::Migration[7.0]
   end
 
   def down
-    disable_extension('uuid-ossp') if extensions.include?('uuid-ossp') 
+    disable_extension('uuid-ossp') if extensions.include?('uuid-ossp')
     disable_extension('pgcrypto') if extensions.include?('pgcrypto')
   end
 end

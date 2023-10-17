@@ -2,13 +2,13 @@ ENV['RAILS_ENV'] ||= 'test'
 if ENV['RAILS_ENV'] == 'test'
   require 'simplecov'
   SimpleCov.start 'rails'
-  puts "required simplecov"
+  puts 'required simplecov'
 end
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
 require_relative '../config/environment'
 # Prevent database truncation if the environment is production
-abort("The Rails environment is running in production mode!") if Rails.env.production?
+abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'
 require 'shoulda/matchers'
 require 'faker'

@@ -13,8 +13,11 @@ RSpec.describe Partner::Application, type: :model do
   let(:partner) { create :partner }
 
   describe 'has_member?' do
-    let(:oauth_application) { create :oauth_application, owner_id: partner.id, owner_type: 'Partner::Partner', approved_by_admin: true, name: 'razer' }
-    
+    let(:oauth_application) do
+      create :oauth_application, owner_id: partner.id, owner_type: 'Partner::Partner', approved_by_admin: true,
+                                 name: 'razer'
+    end
+
     it 'return true' do
       oauth_application
       expect(oauth_application.has_member?(partner.id)).to eq true
@@ -22,8 +25,11 @@ RSpec.describe Partner::Application, type: :model do
   end
 
   describe 'is_ocpi?' do
-    let(:oauth_application) { create :oauth_application, owner_id: partner.id, owner_type: 'Partner::Partner', approved_by_admin: true, name: 'razer', scopes: ['ocpi_request'] }
-    
+    let(:oauth_application) do
+      create :oauth_application, owner_id: partner.id, owner_type: 'Partner::Partner', approved_by_admin: true,
+                                 name: 'razer', scopes: ['ocpi_request']
+    end
+
     it 'return true' do
       oauth_application
       expect(oauth_application.is_ocpi?).to eq true
@@ -31,14 +37,18 @@ RSpec.describe Partner::Application, type: :model do
   end
 
   describe 'has_any_token?' do
-    let(:oauth_application) { create :oauth_application, owner_id: partner.id, owner_type: 'Partner::Partner', approved_by_admin: true, name: 'razer', scopes: ['ocpi_request'] }
+    let(:oauth_application) do
+      create :oauth_application, owner_id: partner.id, owner_type: 'Partner::Partner', approved_by_admin: true,
+                                 name: 'razer', scopes: ['ocpi_request']
+    end
     let(:access_grant) do
-      create :oauth_access_grant, redirect_uri: oauth_application.redirect_uri, application_id: oauth_application.id, 
-                                  expires_in: 3600, resource_owner_id: oauth_application.owner.id, 
+      create :oauth_access_grant, redirect_uri: oauth_application.redirect_uri, application_id: oauth_application.id,
+                                  expires_in: 3600, resource_owner_id: oauth_application.owner.id,
                                   scopes: oauth_application.scopes
     end
     let(:oauth_access_token) do
-      create :oauth_access_token, application_id: oauth_application.id, resource_owner_id: partner.id, oauth_access_grant_id: access_grant.id
+      create :oauth_access_token, application_id: oauth_application.id, resource_owner_id: partner.id,
+                                  oauth_access_grant_id: access_grant.id
     end
 
     it 'return true' do
@@ -48,18 +58,19 @@ RSpec.describe Partner::Application, type: :model do
   end
 
   describe 'their_token' do
-    let(:oauth_application) do 
+    let(:oauth_application) do
       create :oauth_application, owner_id: partner.id, owner_type: 'Partner::Partner',
                                  approved_by_admin: true, name: 'razer', scopes: ['ocpi_request']
     end
     let(:ocpi_credential) { create :ocpi_credential }
     let(:access_grant) do
-      create :oauth_access_grant, redirect_uri: oauth_application.redirect_uri, application_id: oauth_application.id, 
-                                  expires_in: 3600, resource_owner_id: oauth_application.owner.id, 
+      create :oauth_access_grant, redirect_uri: oauth_application.redirect_uri, application_id: oauth_application.id,
+                                  expires_in: 3600, resource_owner_id: oauth_application.owner.id,
                                   scopes: oauth_application.scopes
     end
     let(:oauth_access_token) do
-      create :oauth_access_token, application_id: oauth_application.id, resource_owner_id: partner.id, oauth_access_grant_id: access_grant.id, ocpi_credentials_id: ocpi_credential.id
+      create :oauth_access_token, application_id: oauth_application.id, resource_owner_id: partner.id,
+                                  oauth_access_grant_id: access_grant.id, ocpi_credentials_id: ocpi_credential.id
     end
 
     it 'return their token' do
@@ -69,8 +80,8 @@ RSpec.describe Partner::Application, type: :model do
   end
 
   describe 'ocpi_reset!' do
-    let(:oauth_application) do 
-      create :oauth_application, owner_id: partner.id, owner_type: 'Partner::Partner', 
+    let(:oauth_application) do
+      create :oauth_application, owner_id: partner.id, owner_type: 'Partner::Partner',
                                  approved_by_admin: true, name: 'razer', scopes: ['ocpi_request'],
                                  ocpi_validation_status: 'ocpi_connected'
     end
@@ -80,5 +91,3 @@ RSpec.describe Partner::Application, type: :model do
     end
   end
 end
-
-

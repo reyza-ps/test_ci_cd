@@ -39,9 +39,9 @@ Doorkeeper.configure do
   # access_grant_class "Doorkeeper::AccessGrant"
   # application_class "Doorkeeper::Application"
   #
-  access_token_class "Partner::AccessToken"
-  access_grant_class "Partner::AccessGrant"
-  application_class "Partner::Application"
+  access_token_class 'Partner::AccessToken'
+  access_grant_class 'Partner::AccessGrant'
+  application_class 'Partner::Application'
   # Don't forget to include Doorkeeper ORM mixins into your custom models:
   #
   #   *  ::Doorkeeper::Orm::ActiveRecord::Mixins::AccessToken - for access token
@@ -115,7 +115,7 @@ Doorkeeper.configure do
   # custom_access_token_expires_in do |context|
   #   context.client.additional_settings.implicit_oauth_expiration
   # end
-  custom_access_token_expires_in do |context|
+  custom_access_token_expires_in do |_context|
     Float::INFINITY
   end
 
@@ -541,4 +541,4 @@ module CustomTokenErrorResponse
     super.merge(additional_data)
   end
 end
-Doorkeeper::OAuth::TokenResponse.send :prepend, CustomTokenResponse
+Doorkeeper::OAuth::TokenResponse.prepend CustomTokenResponse

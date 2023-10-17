@@ -9,7 +9,7 @@ class CreateOcpiConnectors < ActiveRecord::Migration[7.0]
       t.integer :max_voltage
       t.integer :max_amperage
       t.integer :max_electric_power
-      t.string :tariff_ids, array:true, default: []
+      t.string :tariff_ids, array: true, default: []
       t.string :terms_and_conditions
       t.datetime :last_updated
 

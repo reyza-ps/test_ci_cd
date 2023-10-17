@@ -12,8 +12,11 @@ RSpec.describe Partner::Partner, type: :model do
 
   describe 'is_owner?' do
     let(:partner) { create :partner }
-    let(:oauth_application) { create :oauth_application, owner_id: partner.id, owner_type: 'Partner::Partner', approved_by_admin: true, name: 'razer' }
-    
+    let(:oauth_application) do
+      create :oauth_application, owner_id: partner.id, owner_type: 'Partner::Partner', approved_by_admin: true,
+                                 name: 'razer'
+    end
+
     it 'return true' do
       oauth_application
       expect(partner.is_owner?(oauth_application.id)).to eq true

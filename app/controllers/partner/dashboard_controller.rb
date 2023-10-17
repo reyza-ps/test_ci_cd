@@ -1,5 +1,4 @@
 class Partner::DashboardController < Partner::BaseController
-  
   def index
     current_partner_apps = current_partner.applications.pluck(:id)
     # unless current_partner_apps.blank?
@@ -12,5 +11,4 @@ class Partner::DashboardController < Partner::BaseController
   def arl_details
     @api_requ_log = ::Partner::ApiRequestLog.find_by_id(params[:arl_id])
   end
-
 end

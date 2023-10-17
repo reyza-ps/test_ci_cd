@@ -19,6 +19,6 @@ class CreatePartnerApiRequestLog < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
-    add_index :api_request_logs, [:oauth_application_id, :request_type]
+    add_index :api_request_logs, %i[oauth_application_id request_type]
   end
 end

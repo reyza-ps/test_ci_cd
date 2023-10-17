@@ -8,8 +8,7 @@ class EvsesController < ApplicationController
     @pagy, @evses = pagy(@q.result(distinct: true), items: 10)
   end
 
-  def show
-  end
+  def show; end
 
   private
 

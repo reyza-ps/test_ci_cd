@@ -8,7 +8,6 @@ class Partner::OcpiCredentialsController < Partner::BaseController
     @pagy, @applications = pagy(@applications, items: 5)
   end
 
-
   def new
     @application = current_partner.oauth_applications.new
   end
@@ -24,7 +23,7 @@ class Partner::OcpiCredentialsController < Partner::BaseController
     end
   end
 
-  def edit;end
+  def edit; end
 
   def update
     if @application.update(application_params)
@@ -36,9 +35,7 @@ class Partner::OcpiCredentialsController < Partner::BaseController
   end
 
   def destroy
-    if @application.destroy
-      flash[:notice] = I18n.t(:notice, scope: %i[doorkeeper flash applications destroy])
-    end
+    flash[:notice] = I18n.t(:notice, scope: %i[doorkeeper flash applications destroy]) if @application.destroy
 
     redirect_to oauth_applications_url
   end
@@ -50,31 +47,34 @@ class Partner::OcpiCredentialsController < Partner::BaseController
 
   def ocpi_modules
     @ocpi_modules = Ocpi::Domain::Versions::Models::Endpoint.joins(
-        version_detail: {
-          version: :credential
-        }
-      )
-      .where("ocpi_credentials.id = ?", params[:ocpi_credentials_id])
+      version_detail: {
+        version: :credential
+      }
+    )
+                                                            .where('ocpi_credentials.id = ?', params[:ocpi_credentials_id])
   end
 
   private
-    def set_application
-      @application = current_partner.applications.find_by_id(params[:id])
-      if @application.blank?
-        flash[:alert] = 'Applications not found or you do not have access'
-        redirect_to partner_root_path and return
+
+  def set_application
+    @application = current_partner.applications.find_by_id(params[:id])
+    return unless @application.blank?
+
+    flash[:alert] = 'Applications not found or you do not have access'
+    redirect_to partner_root_path and return
+  end
+
+  def available_scopes
+    @scopes = [:ocpi_request]
+  end
+
+  def application_params
+    params[:partner_application][:scopes] = 'ocpi_request' if params[:partner_application][:scopes].blank?
+    if params[:partner_application][:scopes].include? :ocpi_token_c
+      params[:partner_application][:scopes] = params[:partner_application][:scopes].reject do |scope|
+        scope == :ocpi_token_c
       end
     end
-
-    def available_scopes
-      @scopes = [:ocpi_request]
-    end
-
-    def application_params
-      params[:partner_application][:scopes] = 'ocpi_request' if params[:partner_application][:scopes].blank?
-      if params[:partner_application][:scopes].include? :ocpi_token_c
-        params[:partner_application][:scopes] = params[:partner_application][:scopes].reject{ |scope| scope == :ocpi_token_c }
-      end
-      params.require(:partner_application).permit(:credentials_token_a, :ocpi_version_endpoint, :name, scopes: [])
-    end
+    params.require(:partner_application).permit(:credentials_token_a, :ocpi_version_endpoint, :name, scopes: [])
+  end
 end

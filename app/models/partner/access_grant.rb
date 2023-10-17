@@ -2,7 +2,6 @@ class Partner::AccessGrant < ActiveRecord::Base
   include ::Doorkeeper::Orm::ActiveRecord::Mixins::AccessGrant
 
   has_one :access_token, class_name: 'Partner::AccessToken', foreign_key: :oauth_access_grant_id, dependent: :destroy
-  
 end
 
 # == Schema Information

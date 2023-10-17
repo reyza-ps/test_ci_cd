@@ -1,7 +1,5 @@
 class HomeController < AdminController
-  def index
-  end
+  def index; end
 
-  def table
-  end
+  def table; end
 end

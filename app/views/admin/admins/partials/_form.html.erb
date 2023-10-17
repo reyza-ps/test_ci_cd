@@ -1,11 +1,11 @@
-<%= form_for @admin, url: url, method: method, html: { class: "space-y-3", role: 'form' } do |f| %>
+<%= form_for @admin, url: admin_admins_path, method: :put, html: { class: "space-y-3", role: 'form' } do |f| %>
   <div class="space-y-8 divide-y divide-gray-200">
     <div>
       <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
         <div class="sm:col-span-6">
           <label for="name" class="block text-sm font-medium text-gray-700">Email</label>
           <div class="mt-1 flex rounded-md shadow-sm">
-            <%= f.text_field :name, disabled: f.object.id.present?, required: true, placeholder: "Enter admin name", class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+            <%= f.text_field :email, disabled: f.object.id.present?, required: true, placeholder: "Enter admin name", class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
           </div>
         </div>
 

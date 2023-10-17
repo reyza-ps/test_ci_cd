@@ -1,25 +1,26 @@
 Rails.application.routes.draw do
-  resources :connectors, only: [:index, :show]
-  resources :evses, only: [:index, :show]
-  resources :locations, only: [:index, :show]
-  resources :credentials, only: [:index, :show]
-  resources :logs, only: [:index, :show]
+  get 'up' => 'rails/health#show', as: :rails_health_check
+  resources :connectors, only: %i[index show]
+  resources :evses, only: %i[index show]
+  resources :locations, only: %i[index show]
+  resources :credentials, only: %i[index show]
+  resources :logs, only: %i[index show]
   resources :client_infos, only: [:index]
   get 'locations/show'
   mount Ocpi::Engine => '/'
   get '/' => 'home#index'
   get '/table' => 'home#table'
-  root to: "home#index"
+  root to: 'home#index'
   devise_for :users
   # Admin routes
   namespace :admin do
-    resources :partners, controller: 'partner/partners', only: [:index, :show, :edit, :update] do
+    resources :partners, controller: 'partner/partners', only: %i[index show edit update] do
       member do
         put '/push/', to: 'partner/partners#push_charger_group', as: :push_charger_group
         put '/download/', to: 'partner/partners#download_charger_group', as: :download_charger_group
       end
-      
-      resources :oauth_applications, controller: 'partner/oauth_applications', except: [:index, :destroy] do
+
+      resources :oauth_applications, controller: 'partner/oauth_applications', except: %i[index destroy] do
         member do
           get :approve
           get :validate
@@ -32,21 +33,21 @@ Rails.application.routes.draw do
 
     resources :admins
   end
-  
+
   devise_for :partners, class_name: 'Partner::Partner', controllers: {
-    sessions:             'partner/devise/sessions',
-    passwords:            'partner/devise/passwords',
-    registrations:        'partner/devise/registrations',
-    confirmations:        'partner/devise/confirmations',
-    unlocks:              'partner/devise/unlocks'
+    sessions: 'partner/devise/sessions',
+    passwords: 'partner/devise/passwords',
+    registrations: 'partner/devise/registrations',
+    confirmations: 'partner/devise/confirmations',
+    unlocks: 'partner/devise/unlocks'
   }
-  
+
   use_doorkeeper scope: 'partner' do
     controllers applications: 'partner/oauth_applications'
     controllers authorizations: 'partner/authorizations'
     controllers tokens: 'partner/tokens'
   end
-  
+
   namespace :partner do
     root 'dashboard#index'
     post '/tokens/ocpi_request' => 'tokens#ocpi_request'

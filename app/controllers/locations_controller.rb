@@ -15,9 +15,10 @@ class LocationsController < ApplicationController
   def set_location
     @location = Location.find(params[:id])
     @business_details = BusinessDetail.all
-    @api_request_logs = Partner::ApiRequestLog.where("endpoint LIKE ? AND endpoint LIKE ?", '%locations%', "%#{@location.uid}%")
-                          .where(request_type: (@readonly ? 'incoming' : 'outgoing'))
-                          .order("created_at desc")
-                          .limit(25)
+    @api_request_logs = Partner::ApiRequestLog.where('endpoint LIKE ? AND endpoint LIKE ?', '%locations%',
+                                                     "%#{@location.uid}%")
+                                              .where(request_type: (@readonly ? 'incoming' : 'outgoing'))
+                                              .order('created_at desc')
+                                              .limit(25)
   end
 end
