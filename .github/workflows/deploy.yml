@@ -41,7 +41,6 @@ jobs:
           ssh-private-key: ${{ secrets.JOMCHARGE_HUB_STAGING_DEPLOYMENT }}
 
       - name: Set up Docker Buildx
-        id: buildx
         uses: docker/setup-buildx-action@v3
 
       - name: Run deploy command
